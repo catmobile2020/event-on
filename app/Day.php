@@ -1,0 +1,47 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Day extends Model
+{
+    protected $fillable=['title','date','active','event_id'];
+
+    public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable')->withDefault();
+    }
+    public function getPhotoAttribute()
+    {
+        if ($this->image->url)
+            return $this->image->full_url;
+        return null;
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class)->withDefault();
+    }
+
+    public function talks()
+    {
+        return $this->hasMany(Talk::class);
+    }
+
+    public function rate()
+    {
+        return $this->morphMany(Rate::class, 'rateable');
+    }
+
+    public function trash()
+    {
+        $photo = public_path().$this->image->url;
+        if (is_file($photo))
+        {
+            @unlink($photo);
+            $this->image()->delete();
+        }
+        $this->delete();
+    }
+}
