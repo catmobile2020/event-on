@@ -8,4 +8,9 @@ class Country extends Model
 {
     protected $fillable =['name','active'];
 
+    public function scopeActive($q)
+    {
+        $q->where('active',1);
+    }
+
 }

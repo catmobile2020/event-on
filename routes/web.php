@@ -15,6 +15,9 @@ Route::group(['prefix'=>'/admin','namespace'=>'Admin','as'=>'admin.'],function (
         Route::get('/profile','ProfileController@index')->name('profile');
         Route::post('/profile','ProfileController@update')->name('profile.update');
 
+        Route::get('/generals/{type}','GeneralController@edit')->name('generals.edit');
+        Route::put('/generals{general}','GeneralController@update')->name('generals.update');
+
         Route::resource('admins','AdminController');
         Route::get('admins/{admin}/destroy','AdminController@destroy')->name('admins.destroy');
 
@@ -23,6 +26,9 @@ Route::group(['prefix'=>'/admin','namespace'=>'Admin','as'=>'admin.'],function (
 
         Route::resource('companies','CompanyController');
         Route::get('companies/{company}/destroy','CompanyController@destroy')->name('companies.destroy');
+
+        Route::resource('{company}/sliders','SliderController');
+        Route::get('{company}/sliders/{slider}/destroy','SliderController@destroy')->name('sliders.destroy');
 
         Route::resource('{company}/speakers','SpeakerController');
         Route::get('{company}/speakers/{speaker}/destroy','SpeakerController@destroy')->name('speakers.destroy');
@@ -81,6 +87,9 @@ Route::post('/change-password/{token}','ChangePasswordController@updatePassword'
 
 Route::group(['namespace'=>'Site','as'=>'site.'],function (){
 
+    Route::get('/privacy','GeneralController@privacy')->name('privacy');
+    Route::get('/terms-and-conditions','GeneralController@terms')->name('terms');
+
     Route::group(['prefix'=>'/'],function (){
         Route::get('/','AuthController@getLogin')->name('login');
         Route::post('/','AuthController@postLogin');
@@ -95,7 +104,7 @@ Route::group(['namespace'=>'Site','as'=>'site.'],function (){
         Route::get('/about','HomeController@about')->name('about');
         Route::get('/faqs','HomeController@faqs')->name('faqs');
         Route::get('/upcoming-events','EventController@upcoming')->name('events.upcoming');
-        Route::get('/register-to-event','EventController@registerToEvent')->name('events.registerToEvent');
+        Route::get('/register-to-event/{event}','EventController@registerToEvent')->name('events.registerToEvent');
         Route::get('/my-calender','EventController@myCalender')->name('events.myCalender');
 
         Route::get('/events/{event}','EventController@show')->name('events.show');
@@ -105,7 +114,7 @@ Route::group(['namespace'=>'Site','as'=>'site.'],function (){
         Route::get('/events/{event}/speakers','SpeakerController@index')->name('speakers.index');
         Route::get('/speakers/{speaker}','SpeakerController@show')->name('speakers.show');
         Route::get('/speakers/{speaker}/vote','SpeakerController@getVote')->name('speakers.vote');
-        Route::get('/speakers/{speaker}/vote','SpeakerController@postVote');
+        Route::post('/speakers/{speaker}/vote','SpeakerController@postVote');
 
         Route::get('/speakers/{speaker}/questions','QuestionController@index')->name('questions.index');
         Route::post('/speakers/{speaker}/questions','QuestionController@store');

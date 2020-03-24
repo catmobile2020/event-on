@@ -19,12 +19,11 @@
                                     </div>
                                 </div>
                                 <div class="speaker-data">
-                                    <a href="{{route('site.speakers.vote',$row->id)}}" class="vote-speaker">Vote</a>
                                     <div class="block-name">
                                         <a href="{{route('site.speakers.show',$row->id)}}">{{$row->name}}</a>
                                     </div>
                                     <div class="block-data">
-                                        <p>{{Str::limit(strip_tags($row->description),50)}}</p>
+                                        <p>{{Str::limit(strip_tags($row->bio),50)}}</p>
                                     </div>
                                 </div>
                             </div>

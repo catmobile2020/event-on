@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Day extends Model
+class Slider extends Model
 {
-    protected $fillable=['title','date','active','event_id'];
+    protected $fillable=['title','is_image','btn_text','btn_color','btn_url','video_url','active','company_id'];
 
     public function image()
     {
@@ -19,24 +19,14 @@ class Day extends Model
         return null;
     }
 
+    public function company()
+    {
+        return $this->belongsTo(Company::class)->withDefault();
+    }
+
     public function scopeActive($q)
     {
         $q->where('active',1);
-    }
-
-    public function event()
-    {
-        return $this->belongsTo(Event::class)->withDefault();
-    }
-
-    public function talks()
-    {
-        return $this->hasMany(Talk::class);
-    }
-
-    public function rate()
-    {
-        return $this->morphMany(Rate::class, 'rateable');
     }
 
     public function trash()

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Site;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PollRequest extends FormRequest
+class GeneralRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class PollRequest extends FormRequest
     public function rules()
     {
         return [
-            'question'=>'required',
-//            'options'=>'required|array|min:1'
+            'value'=>'required'
         ];
     }
 }

@@ -50,7 +50,7 @@ class User extends Authenticatable
     {
         if ($this->image->url)
             return $this->image->full_url;
-        return null;
+        return 'https://cdn.iconscout.com/icon/free/png-512/avatar-370-456322.png';
     }
 
     public function scopeActive($q)

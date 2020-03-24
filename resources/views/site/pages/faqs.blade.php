@@ -20,9 +20,9 @@
                                     </h2>
                                 </div>
 
-                                <div id="{{$loop->iteration}}" class="collapse" aria-labelledby="{{$loop->iteration}}" data-parent="#accordionExample">
+                                <div id="{{$loop->iteration}}" class="collapse {{$loop->first ? 'show' : ''}}" aria-labelledby="{{$loop->iteration}}" data-parent="#accordionExample">
                                     <div class="card-body">
-                                        {{$row->answer}}
+                                        {!! $row->answer !!}
                                     </div>
 
                                 </div>

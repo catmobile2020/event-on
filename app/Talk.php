@@ -8,6 +8,11 @@ class Talk extends Model
 {
     protected $fillable=['title','desc','location','time_from','time_to','active','day_id'];
 
+    public function scopeActive($q)
+    {
+        $q->where('active',1);
+    }
+
     public function day()
     {
       return $this->belongsTo(Day::class)->withDefault();

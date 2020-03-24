@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Slider;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('site.pages.home');
+        $sliders = Slider::active()->get();
+        return view('site.pages.home',compact('sliders'));
     }
 
     public function about()
@@ -23,7 +25,7 @@ class HomeController extends Controller
     {
         $auth_user = auth()->user();
         $company= $auth_user->company;
-        $rows = $company->faqs;
+        $rows = $company->faqs()->active()->get();
         return view('site.pages.faqs',compact('company','rows'));
     }
 }

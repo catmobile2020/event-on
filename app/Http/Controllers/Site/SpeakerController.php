@@ -12,7 +12,13 @@ class SpeakerController extends Controller
 {
     public function index(Event $event)
     {
-        $rows = $event->speakers()->paginate($this->api_paginate_num);
+        $speakers =collect([]);
+        $talks =  $event->talks;
+        foreach ($talks as $talk)
+        {
+            $speakers = $speakers->merge($talk->speakers);
+        }
+        $rows = $speakers->unique();
         return view('site.pages.speaker.index',compact('event','rows'));
     }
 
@@ -24,7 +30,7 @@ class SpeakerController extends Controller
     public function getVote(User $speaker)
     {
         $was_voted = $speaker->rates()->where('user_id',auth()->id())->first() ? true : false;
-        return view('site.pages.event.vote',compact('event','speaker','was_voted'));
+        return view('site.pages.speaker.vote',compact('event','speaker','was_voted'));
     }
 
     public function PostVote(User $speaker,RateRequest $request)

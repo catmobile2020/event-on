@@ -34,7 +34,7 @@
                                         </div>
                                     </div>
                                 @else
-                                    <div class="session-data yellow pointer eventToRegister" data-url="{{route('site.events.registerToEvent')}}">
+                                    <div class="session-data yellow pointer eventToRegister" data-url="{{route('site.events.registerToEvent',$row->id)}}">
                                         <div class="date" >
                                             Register Now
                                         </div>
@@ -60,8 +60,12 @@
                 Swal.fire(
                     result.title,
                     result.message,
-                    result.status
-                )
+                    result.status,
+                ).then((result) => {
+                    if (result.value) {
+                        window.location.reload();
+                    }
+                })
             },
             error:function (errors) {
                 Swal.fire(

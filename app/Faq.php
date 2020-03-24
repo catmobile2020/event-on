@@ -12,4 +12,8 @@ class Faq extends Model
     {
         return $this->belongsTo(Company::class)->withDefault();
     }
+    public function scopeActive($q)
+    {
+        $q->where('active',1);
+    }
 }

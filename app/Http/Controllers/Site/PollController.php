@@ -24,7 +24,7 @@ class PollController extends Controller
         ]);
         if ($poll)
         {
-            foreach ($request->options as $option)
+            foreach (array_filter($request->options) as $option)
             {
                 $poll->options()->create(['option'=>$option]);
             }

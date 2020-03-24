@@ -50,7 +50,7 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                        <a href="{{route('site.polls.destroy')}}" class="badge badge-danger">Delete</a>
+                                        <a href="{{route('site.polls.destroy',$row->id)}}" class="badge badge-danger">Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -104,7 +104,7 @@
                 e.preventDefault();
                 if(x < max_fields_limit){
                     x++;
-                    $('.more-fields').append('<div><input type="text" name="options" placeholder="Answer"/><a href="#" class="remove_field" style="margin-left:10px;">Remove</a></div>'); //add input field
+                    $('.more-fields').append('<div><input type="text" name="options[]" placeholder="Answer"/><a href="#" class="remove_field" style="margin-left:10px;">Remove</a></div>'); //add input field
                 }
             });
             $('.more-fields').on("click",".remove_field", function(e){

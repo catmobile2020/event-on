@@ -47,7 +47,7 @@ class AuthController extends Controller
         {
             return abort(404);
         }
-        $countries = Country::all();
+        $countries = Country::active()->get();
         return view('site.pages.auth.register',compact('company','countries'));
     }
 

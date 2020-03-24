@@ -20,6 +20,11 @@ class Event extends Model
         return null;
     }
 
+    public function scopeActive($q)
+    {
+        $q->where('active',1);
+    }
+
     public function company()
     {
         return $this->belongsTo(Company::class)->withDefault();
@@ -40,9 +45,9 @@ class Event extends Model
         return $this->belongsToMany(Admin::class);
     }
 
-    public function speakers()
+    public function talks()
     {
-        return $this->belongsToMany(User::class);
+        return $this->hasManyThrough(Talk::class,Day::class)->has('speakers')->with('speakers');
     }
 
     public function trash()

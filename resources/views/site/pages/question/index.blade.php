@@ -45,7 +45,7 @@
                                     <td>{{$row->question}}</td>
                                     <td>
 {{--                                        <a href="#" class="badge badge-primary">Edit</a>--}}
-                                        <a href="{{route('site.questions.destroy')}}" class="badge badge-danger">Delete</a>
+                                        <a href="{{route('site.questions.destroy',$row->id)}}" class="badge badge-danger">Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach

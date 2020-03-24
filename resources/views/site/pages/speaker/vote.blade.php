@@ -14,15 +14,15 @@
                             <div class="d-flex justify-content-start">
                                 <div class="session-data-speaker">
                                     <div class="date">
-                                        <img src="{{$row->photo}}" alt="{{$row->name}}">
+                                        <img src="{{$speaker->photo}}" alt="{{$speaker->name}}">
                                     </div>
                                 </div>
                                 <div class="speaker-data">
                                     <div class="block-name">
-                                        <a href="{{route('site.speakers.show',$row->id)}}">{{$row->name}}</a>
+                                        <a href="{{route('site.speakers.show',$speaker->id)}}">{{$speaker->name}}</a>
                                     </div>
                                     <div class="block-data">
-                                        <p>{{Str::limit(strip_tags($row->description),50)}}</p>
+                                        <p>{{Str::limit(strip_tags($speaker->description),50)}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                         @if ($was_voted)
                             <div class="col-12">
                                 <div class="alert alert-success">
-                                    <h4>You Are Voted Before!</h4>
+                                    <h4>You Are Voted This Before!</h4>
                                 </div>
                             </div>
                          @else

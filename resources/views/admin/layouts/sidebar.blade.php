@@ -48,6 +48,18 @@
         </li>
         @endif
 
+        <li>
+            <a href="{{route('admin.generals.edit',1)}}">
+                <i class="fa fa-print"></i><span class="title">Privacy</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{route('admin.generals.edit',2)}}">
+                <i class="fa fa-book"></i><span class="title">Terms & Conditions</span>
+            </a>
+        </li>
+
 {{--        <li class="{{Route::is('admin.posts.*') ? 'active' : ''}}">--}}
 {{--            <a href="{{route('admin.posts.index')}}">--}}
 {{--                <i class="fa fa-book"></i><span class="title">Posts</span>--}}

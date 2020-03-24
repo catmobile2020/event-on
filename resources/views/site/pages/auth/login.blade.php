@@ -52,13 +52,23 @@
                                                 <input type="checkbox" name="remember_me" class="custom-control-input" id="customCheck1">
                                                 <label class="custom-control-label" for="customCheck1">Remember Me</label>
                                             </div>
-                                            <router-link to="/auth/forgot-password" class="reset_password">Reset Password</router-link>
+{{--                                            <router-link to="/auth/forgot-password" class="reset_password">Reset Password</router-link>--}}
                                         </div>
                                     </div>
                                     <div class="form--group mt-3">
                                         <div class="row">
                                             <div class="col-12">
                                                 <button type="submit" class="btn btn-dark mt-3 w-100 p-3">Log In</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form--group mt-5">
+                                        <div class="row no-gutters">
+                                            <div class="col-6 text-left">
+                                                <a href="{{route('site.terms')}}" class="p-3">Terms and Conditions</a>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <a href="{{route('site.privacy')}}" class="p-3">Privacy Policy</a>
                                             </div>
                                         </div>
                                     </div>

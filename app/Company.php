@@ -19,6 +19,11 @@ class Company extends Model
         return null;
     }
 
+    public function scopeActive($q)
+    {
+        $q->where('active',1);
+    }
+
     public function users()
     {
         return $this->hasMany(User::class);
@@ -42,6 +47,11 @@ class Company extends Model
     public function faqs()
     {
         return $this->hasMany(Faq::class);
+    }
+
+    public function sliders()
+    {
+        return $this->hasMany(Slider::class);
     }
 
     public function trash()
