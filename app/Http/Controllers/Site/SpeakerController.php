@@ -23,13 +23,13 @@ class SpeakerController extends Controller
 
     public function getVote(User $speaker)
     {
-        $was_voted = $speaker->rate()->where('user_id',auth()->id())->first() ? true : false;
+        $was_voted = $speaker->rates()->where('user_id',auth()->id())->first() ? true : false;
         return view('site.pages.event.vote',compact('event','speaker','was_voted'));
     }
 
     public function PostVote(User $speaker,RateRequest $request)
     {
-        $speaker->rate()->create([
+        $speaker->rates()->create([
             'rate'=>$request->rate,
             'comment'=>$request->comment,
             'user_id'=>auth()->id(),

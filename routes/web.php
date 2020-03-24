@@ -15,6 +15,9 @@ Route::group(['prefix'=>'/admin','namespace'=>'Admin','as'=>'admin.'],function (
         Route::get('/profile','ProfileController@index')->name('profile');
         Route::post('/profile','ProfileController@update')->name('profile.update');
 
+        Route::resource('admins','AdminController');
+        Route::get('admins/{admin}/destroy','AdminController@destroy')->name('admins.destroy');
+
         Route::resource('countries','CountryController');
         Route::get('countries/{country}/destroy','CountryController@destroy')->name('countries.destroy');
 
@@ -27,6 +30,8 @@ Route::group(['prefix'=>'/admin','namespace'=>'Admin','as'=>'admin.'],function (
         Route::resource('{company}/events','EventController');
         Route::get('{company}/events/{event}/destroy','EventController@destroy')->name('events.destroy');
 
+        Route::get('events/myEvents','EventController@myEvents')->name('events.myEvents');
+
         Route::resource('{company}/events','EventController');
         Route::get('{company}/events/{event}/destroy','EventController@destroy')->name('events.destroy');
         Route::get('{company}/events/{event}/users','EventController@users')->name('events.users');
@@ -38,8 +43,8 @@ Route::group(['prefix'=>'/admin','namespace'=>'Admin','as'=>'admin.'],function (
         Route::get('{day}/talks/{talk}/destroy','TalkController@destroy')->name('talks.destroy');
         Route::get('{day}/talks/{talk}/rates','TalkController@rates')->name('talks.rates');
 
-        Route::resource('{event}/faqs','FaqController');
-        Route::get('{event}/faqs/{faq}/destroy','FaqController@destroy')->name('faqs.destroy');
+        Route::resource('{company}/faqs','FaqController');
+        Route::get('{company}/faqs/{faq}/destroy','FaqController@destroy')->name('faqs.destroy');
 
 //        Route::resource('polls','PollController');
 //        Route::get('polls/{poll}/destroy','PollController@destroy')->name('polls.destroy');
@@ -85,6 +90,7 @@ Route::group(['namespace'=>'Site','as'=>'site.'],function (){
     });
 
     Route::group(['middleware'=>['auth:web']],function (){
+        Route::get('/account','AccountController@me')->name('profile');
         Route::get('/home','HomeController@index')->name('home');
         Route::get('/about','HomeController@about')->name('about');
         Route::get('/faqs','HomeController@faqs')->name('faqs');
@@ -93,11 +99,23 @@ Route::group(['namespace'=>'Site','as'=>'site.'],function (){
         Route::get('/my-calender','EventController@myCalender')->name('events.myCalender');
 
         Route::get('/events/{event}','EventController@show')->name('events.show');
+        Route::get('/talks/{talk}/vote','EventController@getTalkVote')->name('events.talk.vote');
+        Route::get('/talks/{talk}/vote','EventController@postTalkVote');
 
         Route::get('/events/{event}/speakers','SpeakerController@index')->name('speakers.index');
         Route::get('/speakers/{speaker}','SpeakerController@show')->name('speakers.show');
         Route::get('/speakers/{speaker}/vote','SpeakerController@getVote')->name('speakers.vote');
         Route::get('/speakers/{speaker}/vote','SpeakerController@postVote');
+
+        Route::get('/speakers/{speaker}/questions','QuestionController@index')->name('questions.index');
+        Route::post('/speakers/{speaker}/questions','QuestionController@store');
+        Route::get('/questions/{question}/destroy','QuestionController@destroy')->name('questions.destroy');
+        Route::post('/questions/{question}/add-answer','QuestionController@addAnswer')->name('questions.addAnswer');
+
+        Route::get('/speakers/{speaker}/polls','PollController@index')->name('polls.index');
+        Route::post('/speakers/{speaker}/polls','PollController@store');
+        Route::get('/polls/{poll}/destroy','PollController@destroy')->name('polls.destroy');
+        Route::post('/polls/{poll}/add-vote','PollController@addVote')->name('polls.addVote');
     });
 
 

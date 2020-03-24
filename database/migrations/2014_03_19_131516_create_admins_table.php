@@ -17,9 +17,11 @@ class CreateAdminsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('username');
+            $table->tinyInteger('type')->default(2); // 1 => admin 2=> sales
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->tinyInteger('active')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

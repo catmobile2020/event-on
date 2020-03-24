@@ -9,7 +9,7 @@
                 <div class="row no-gutters">
                     <div class="col-12">
                         <div class="upcoming-event">
-                            <a href="upcoming.html">
+                            <a href="{{route('site.events.upcoming')}}">
                                 <img src="https://ca-times.brightspotcdn.com/dims4/default/caa259e/2147483647/strip/true/crop/1800x843+0+0/resize/840x393!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F91%2Ffa%2F0b2a98804a4ba411cd26c5a3f264%2Fupcoming-events.jpg" class="img-fluid w-100" alt="">
                             </a>
                         </div>

@@ -35,6 +35,11 @@ class Event extends Model
         return $this->morphMany(Rate::class, 'rateable');
     }
 
+    public function admins()
+    {
+        return $this->belongsToMany(Admin::class);
+    }
+
     public function speakers()
     {
         return $this->belongsToMany(User::class);

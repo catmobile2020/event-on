@@ -4,7 +4,7 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-@import url("https://fonts.googleapis.com/css?family=Raleway:400,500");
+@import url(../../lib/swiper/package/css/swiper.css);
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -8971,7 +8971,12 @@ a {
       .grid__content .live-event-now .event-now {
         width: 100%;
         height: 60px;
-        background-color: #FF9800; }
+        background-color: #FF9800;
+        font-size: 25px;
+        color: #161616;
+        text-align: center;
+        font-weight: 500;
+        line-height: 3.4rem; }
   .grid .block-content {
     width: 100%;
     background-color: #fff;
@@ -9024,7 +9029,7 @@ a {
     display: table-cell;
     padding: 10px;
     border-right: 1px solid #dcdcdc !important;
-    min-height: 80px;
+    height: 105px;
     text-align: center;
     font-family: Tahoma;
     font-weight: bold;
@@ -9039,7 +9044,7 @@ a {
       padding: 0px;
       margin: 0px; }
     .grid .session-data-speaker .date {
-      margin-top: 19px; }
+      margin-top: 6px; }
       .grid .session-data-speaker .date img {
         width: 75px;
         border: 5px solid #fff !important;
@@ -9062,6 +9067,68 @@ a {
       border-bottom: 1px solid #dcdcdc  !important;
       font-weight: bold; }
     .grid .speaker-data .block-data {
+      padding: 10px;
+      font-size: 15px; }
+  .grid .filter-agenda {
+    max-width: 100%;
+    width: 100%;
+    margin-right: 1rem;
+    background-color: #154271;
+    border: 0px;
+    color: #fff;
+    border-radius: 0px; }
+  .grid .block-content-agenda {
+    background-color: #fff;
+    min-height: 80px;
+    margin: 1rem; }
+  .grid .session-data-agenda {
+    position: relative;
+    background-color: #1c5ea2;
+    display: table-cell;
+    padding: 10px;
+    border-right: 1px solid #dcdcdc !important;
+    height: 105px;
+    text-align: center;
+    font-family: Tahoma;
+    font-weight: bold;
+    font-size: 14px;
+    -webkit-border-top-right-radius: 100px;
+    -webkit-border-bottom-right-radius: 100px;
+    -moz-border-radius-topright: 100px;
+    -moz-border-radius-bottomright: 100px;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px; }
+    .grid .session-data-agenda p {
+      padding: 0px;
+      margin: 0px; }
+    .grid .session-data-agenda .date {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      margin: auto;
+      display: inline-block;
+      height: 52px;
+      font-size: 13px;
+      color: #fff; }
+  .grid .agenda-data {
+    display: table-cell;
+    min-height: 80px; }
+    .grid .agenda-data .vote-agenda {
+      background-color: #ff9942;
+      float: right;
+      margin: 9px;
+      padding-left: 20px;
+      padding-right: 20px;
+      color: #333;
+      font-weight: bold;
+      border-radius: 6px; }
+    .grid .agenda-data .block-name {
+      padding: 10px;
+      border-bottom: 1px solid #dcdcdc  !important;
+      font-weight: bold; }
+    .grid .agenda-data .block-data {
       padding: 10px;
       font-size: 15px; }
   .grid .block-content-c {
@@ -9159,6 +9226,73 @@ a {
   border-radius: 40px;
   padding-top: 10px;
   padding-bottom: 10px; }
+
+.live-event {
+  background-color: #000;
+  background-image: url("https://pngimage.net/wp-content/uploads/2018/06/sala-de-cinema-png-3.png");
+  height: calc(100vh - 91px);
+  background-position: center -112px;
+  background-repeat: no-repeat;
+  background-size: 100%; }
+
+iframe {
+  width: 72rem;
+  height: 30rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 173px;
+  margin-left: 364px; }
+
+@media only screen and (max-width: 776px) {
+  iframe {
+    width: 100%;
+    height: 100vh;
+    margin-left: 0px;
+    margin-top: 0px;
+    top: 85px; } }
+
+@media only screen and (max-width: 375px) {
+  iframe {
+    width: 100%;
+    height: 100vh;
+    margin-left: 0px;
+    margin-top: 0px;
+    top: 85px; } }
+
+@media only screen and (width: 1024px) {
+  iframe {
+    width: 38rem;
+    height: 17rem;
+    margin-left: 197px;
+    margin-top: 28px; }
+  .live-event {
+    background-color: #000;
+    background-image: url(https://pngimage.net/wp-content/uploads/2018/06/sala-de-cinema-png-3.png);
+    height: calc(100vh - 91px);
+    background-position: center 0px;
+    background-repeat: no-repeat;
+    background-size: 100%; } }
+
+@media only screen and (width: 1366px) {
+  iframe {
+    width: 50.5rem;
+    height: 22rem;
+    margin-left: 262px;
+    margin-top: 53px; } }
+
+.swiper-button-next, .swiper-container-rtl .swiper-button-prev {
+  right: 0;
+  left: auto;
+  background-color: #fff;
+  padding: 30px; }
+
+.swiper-button-prev, .swiper-container-rtl .swiper-button-next {
+  left: 0;
+  right: auto;
+  background-color: #fff;
+  padding: 30px; }
 
 .sidebar-menu {
   width: 350px;

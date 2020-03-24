@@ -14,6 +14,7 @@ class AdminTableSeeder extends Seeder
         \App\Admin::create([
             'name' => 'admin',
             'username' => 'admin',
+            'type' => 1,
             'email' => 'm.mohamed@cat.com.eg',
             'password' => 123456,
         ]);

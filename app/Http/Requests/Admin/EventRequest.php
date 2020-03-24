@@ -25,9 +25,12 @@ class EventRequest extends FormRequest
     {
         return [
             'name'=>'required',
-            'date'=>'required',
+            'start_date'=>'required',
+            'end_date'=>'required',
             'city'=>'required',
             'active'=>'required',
+            'admin_ids'=>'required|array|min:1',
+            'admin_ids.*'=>'integer',
         ];
     }
 }

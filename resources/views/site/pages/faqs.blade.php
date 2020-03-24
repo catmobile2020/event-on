@@ -35,6 +35,3 @@
         </div>
     </main>
 @endsection
-@section('js')
-    <script src="{{asset('assets/site/lib/bootstrap/dist/js/bootstrap.js')}}"></script>
-@endsection

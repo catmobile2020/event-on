@@ -27,6 +27,10 @@ class AuthController extends Controller
         })->first();
         if ($row)
         {
+            if ($row->active ==0)
+            {
+                return redirect()->back()->with('message','Your Account Is DisActive Back To Admin');
+            }
             if (Hash::check($request->password,$row->password))
             {
                 auth('admin')->login($row,$request->remember);

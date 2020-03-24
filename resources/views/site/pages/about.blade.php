@@ -15,6 +15,7 @@
                                         <a href="{{$company->website}}">{{$company->name}}</a>
                                     </div>
                                     <div class="block-data">
+                                        <img src="{{$company->logo}}" alt="{{$company->name}}">
                                         {!! $company->description !!}
                                     </div>
                                 </div>

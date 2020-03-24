@@ -47,13 +47,13 @@
                                     <input type="text" name="name" class="form-control" id="name" placeholder="name" value="{{$event->name}}">
                                 </div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="start_date">Start Date</label>
                                     <input type="date" name="start_date" class="form-control" id="start_date" placeholder="start_date" value="{{$event->start_date}}">
                                 </div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="end_date">End Date</label>
                                     <input type="date" name="end_date" class="form-control" id="end_date" placeholder="end_date" value="{{$event->end_date}}">
@@ -80,26 +80,26 @@
                                     <input type="text" name="address" class="form-control" id="address" placeholder="address" value="{{$event->address}}">
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="lat">lat</label>
                                     <input type="text" name="lat" class="form-control" id="lat" placeholder="lat" value="{{$event->lat}}">
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="lng">lng</label>
                                     <input type="text" name="lng" class="form-control" id="lng" placeholder="lng" value="{{$event->lng}}">
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="photo">Photo</label>
                                     <input type="file" name="photo" class="form-control" id="photo">
                                 </div>
                             </div>
                             @isset($event->id)
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <img src="{{$event->photo}}" style="height: 200px;width: auto">
                                 </div>
                             @endisset
@@ -107,6 +107,21 @@
                                 <div class="form-group">
                                     <label for="summernote">description</label>
                                     <textarea name="description" class="form-control ui-helper-hidden-accessible" id="summernote" >{!! $event->description !!}</textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 alert alert-info">
+                                    <h2 class="text-center">Select Sales Members</h2>
+                                </div>
+                                <div class="col-lg-12">
+                                    @foreach($admins as $admin)
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <label for="admin_id_{{$admin->id}}">{{$admin->name}}</label>
+                                                <input {{in_array($admin->id,$event->admins()->pluck('admin_id')->toArray()) ? 'checked' : ''}} type="checkbox" name="admin_ids[]" class="form-control" id="admin_id_{{$admin->id}}" value="{{$admin->id}}">
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="col-sm-8 col-sm-offset-4">

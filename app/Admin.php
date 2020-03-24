@@ -16,7 +16,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name','username', 'email', 'password',
+        'name','username','type', 'email', 'password','active',
     ];
 
     /**
@@ -40,6 +40,43 @@ class Admin extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable')->withDefault();
+    }
+    public function getPhotoAttribute()
+    {
+        if ($this->image->url)
+            return $this->image->full_url;
+        return null;
+    }
+
+    public function scopeActive($q)
+    {
+        $q->where('active',1);
+    }
+
+    public function scopeSales($q)
+    {
+        $q->where('type',2);
+    }
+
+    public function trash()
+    {
+        $photo = public_path().$this->image->url;
+        if (is_file($photo))
+        {
+            @unlink($photo);
+            $this->image()->delete();
+        }
+        $this->delete();
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class);
     }
 
 }

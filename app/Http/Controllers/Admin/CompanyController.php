@@ -12,6 +12,11 @@ class CompanyController extends Controller
 {
     use UploadImage;
 
+    public function __construct()
+    {
+        $this->middleware('auth_type:1');
+    }
+
     public function index()
     {
         $rows = Company::latest()->paginate($this->web_paginate_num);

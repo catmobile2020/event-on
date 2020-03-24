@@ -83,7 +83,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Talk::class);
     }
 
-    public function rate()
+    public function rates()
     {
         return $this->morphMany(Rate::class, 'rateable');
     }
@@ -91,6 +91,16 @@ class User extends Authenticatable
     public function myEvents()
     {
         return $this->belongsToMany(Event::class);
+    }
+
+    public function ownerQuestions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    public function ownerPolls()
+    {
+        return $this->hasMany(Poll::class);
     }
 
     public function trash()

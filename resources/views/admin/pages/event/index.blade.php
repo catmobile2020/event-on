@@ -13,9 +13,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
+                    @if (auth()->user()->type == 1)
                     <div class="panel-heading clearfix">
                         <a href="{{route('admin.events.create',$company->id)}}" class="btn btn-primary" style="float: right;">Add Event</a>
                     </div>
+                    @endif
                     <div class="panel-body">
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -38,11 +40,13 @@
                                     <th>#</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
+                                    <th>Company Name</th>
                                     <th>City</th>
                                     <th>Status</th>
 {{--                                    <th>will attend</th>--}}
 {{--                                    <th>will not attend</th>--}}
                                     <th>Features</th>
+                                    <th>Registration Link</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -52,6 +56,7 @@
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$row->start_date}}</td>
                                         <td>{{$row->end_date}}</td>
+                                        <td>{{$row->company->name}}</td>
                                         <td>{{$row->city}}</td>
                                         <td>
                                             <span class="badge badge-{{ $row->active == 1 ? 'success' : 'danger' }}">{{ $row->active == 1 ? 'Active' : 'DisActive'}}</span>
@@ -60,14 +65,19 @@
 {{--                                        <td>{{$row->users()->where('attended',0)->count()}}</td>--}}
                                         <td>
                                             <a href="{{route('admin.days.index',$row->id)}}" class="btn btn-primary btn-rounded">Days</a>
+                                            <a href="{{route('admin.speakers.index',$row->company->id)}}" class="btn btn-success btn-rounded">Speakers</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{route('site.register',$row->company->token)}}">{{route('site.register',$row->company->token)}}</a>
                                         </td>
                                         <td class="size-80">
                                             <div class="dropdown">
                                                 <a href="" data-toggle="dropdown" class="more-link"><i class="icon-dot-3 ellipsis-icon"></i></a>
                                                 <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="{{route('admin.events.edit',[$company->id,$row->id])}}">Edit</a></li>
-                                                    <li><a href="{{route('admin.events.destroy',[$company->id,$row->id])}}">Delete</a></li>
-{{--                                                    <li><a href="{{route('admin.events.users',$row->id)}}">Users</a></li>--}}
+                                                    <li><a href="{{route('admin.events.edit',[$row->company->id,$row->id])}}">Edit</a></li>
+                                                    @if (auth()->user()->type == 1)
+                                                        <li><a href="{{route('admin.events.destroy',[$row->company->id,$row->id])}}">Delete</a></li>
+                                                    @endif
                                                 </ul>
                                             </div>
                                         </td>

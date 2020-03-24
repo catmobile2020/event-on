@@ -6,7 +6,7 @@
                     <span class="fas fa-sign-out-alt white size-20 pr-2 pl-2"></span>
                 </a>
             @else
-                <a href="dashboard.html" class="back-to">
+                <a href="{{route('site.home')}}" class="back-to">
                     <i class="fas fa-chevron-left white size-20 pr-2 pl-2"></i>
                 </a>
             @endif
@@ -40,7 +40,7 @@
                     <span>About</span>
                 </div>
             </a>
-            <a href="account.html">
+            <a href="{{route('site.profile')}}">
                 <div class="name">
                     <span>My Account</span>
                 </div>

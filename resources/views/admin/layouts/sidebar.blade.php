@@ -21,18 +21,32 @@
                 <i class="icon-gauge"></i><span class="title">Dashboard</span>
             </a>
         </li>
-
-        <li class="{{Route::is('admin.companies.*') ? 'active' : ''}}">
-            <a href="{{route('admin.companies.index')}}">
-                <i class="fa fa-database"></i><span class="title">Companies</span>
-            </a>
-        </li>
+        @if (auth()->user()->type == 1)
+            <li class="{{Route::is('admin.companies.*') ? 'active' : ''}}">
+                <a href="{{route('admin.companies.index')}}">
+                    <i class="fa fa-database"></i><span class="title">Companies</span>
+                </a>
+            </li>
+        @else
+            <li class="{{Route::is('admin.events.*') ? 'active' : ''}}">
+                <a href="{{route('admin.events.myEvents')}}">
+                    <i class="fa fa-database"></i><span class="title">My Events</span>
+                </a>
+            </li>
+        @endif
 
         <li class="{{Route::is('admin.countries.*') ? 'active' : ''}}">
             <a href="{{route('admin.countries.index')}}">
                 <i class="fa fa-building"></i><span class="title">Countries</span>
             </a>
         </li>
+        @if (auth()->user()->type == 1)
+        <li class="{{Route::is('admin.admins.*') ? 'active' : ''}}">
+            <a href="{{route('admin.admins.index')}}">
+                <i class="fa fa-users"></i><span class="title">Sales Members</span>
+            </a>
+        </li>
+        @endif
 
 {{--        <li class="{{Route::is('admin.posts.*') ? 'active' : ''}}">--}}
 {{--            <a href="{{route('admin.posts.index')}}">--}}

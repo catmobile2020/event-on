@@ -26,9 +26,11 @@
         <!--                </section>-->
     </div>
 </div>
-<script src="{{asset('assets/site/lib/jquery/dist/jquery-1.11.0.js')}}"></script>
-@yield('js')
+<script src="{{asset('assets/site/js/jquery-1.11.0.js')}}"></script>
+<script src="{{asset('assets/site/js/bootstrap.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="{{asset('assets/site/js/swiper.min.js')}}"></script>
 <script src="{{asset('assets/site/js/main.js')}}"></script>
+@yield('js')
 </body>
 </html>
