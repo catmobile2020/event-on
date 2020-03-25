@@ -20,54 +20,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register','resetPassword']]);
-    }
-
-    /**
-     *
-     * @SWG\Post(
-     *      tags={"auth"},
-     *      path="/auth/register",
-     *      summary="register",
-     *      security={
-     *          {"jwt": {}}
-     *      },
-     *      @SWG\Parameter(
-     *         name="name",
-     *         in="formData",
-     *         required=true,
-     *         type="string",
-     *         format="string",
-     *         default="mahmoud",
-     *      ),@SWG\Parameter(
-     *         name="email",
-     *         in="formData",
-     *         required=true,
-     *         type="string",
-     *         format="string",
-     *         default="mahmoudnada5050@gmail.com",
-     *      ),@SWG\Parameter(
-     *         name="password",
-     *         in="formData",
-     *         required=true,
-     *         type="string",
-     *         format="string",
-     *         default="123456",
-     *      ),
-     *      @SWG\Response(response=200, description="token"),
-     *      @SWG\Response(response=401, description="Unauthorized"),
-     *      @SWG\Response(response=422, description="Validation Error"),
-     *      @SWG\Response(response=403, description="Forbidden The client did not have permission to access the requested resource."),
-     * )
-     * @param RegisterRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-
-    public function register(RegisterRequest $request)
-    {
-        $user = User::create($request->all());
-        $token = auth()->login($user);
-        return $this->respondWithToken($token);
+        $this->middleware('auth:api', ['except' => ['login','resetPassword']]);
     }
 
     /**

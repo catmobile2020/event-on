@@ -41,6 +41,10 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
+        if (\request()->wantsJson())
+        {
+            return $event;
+        }
         return view('site.pages.event.show',compact('event'));
     }
 

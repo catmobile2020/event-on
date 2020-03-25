@@ -13,7 +13,7 @@ use Illuminate\Routing\Controller as BaseController;
  *     schemes={"http"},
  *     @SWG\Info(
  *         version="1.0",
- *         title="Novartis Event App",
+ *         title="Event On App",
  *         @SWG\Contact(name="Mahmoud Mohamed",email="m.mohamed@cat.com.eg",url="https://www.linkedin.com/in/mahmoud-mohamed-955932b5/"),
  *     ),
  *     @SWG\SecurityScheme(
