@@ -49,10 +49,16 @@
                                     <input type="text" name="name" class="form-control" id="name" placeholder="name" value="{{$company->name}}">
                                 </div>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="website">website</label>
                                     <input type="text" name="website" class="form-control" id="website" placeholder="website" value="{{$company->website}}">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="intro_video">intro video link</label>
+                                    <input type="text" name="intro_video" class="form-control" id="intro_video" placeholder="intro video link" value="{{$company->intro_video}}">
                                 </div>
                             </div>
                             <div class="col-lg-4">

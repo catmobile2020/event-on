@@ -14,7 +14,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading clearfix">
-                        <a href="{{route('admin.countries.create')}}" class="btn btn-primary" style="float: right;">Add Company</a>
+                        <a href="{{route('admin.countries.create')}}" class="btn btn-primary" style="float: right;">Add Country</a>
                     </div>
                     <div class="panel-body">
                         @if ($errors->any())
@@ -38,6 +38,7 @@
                                     <th>#</th>
                                     <th>name</th>
                                     <th>active</th>
+                                    <th>cities</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -48,6 +49,9 @@
                                         <td>{{$row->name}}</td>
                                         <td>
                                             <span class="badge badge-{{ $row->active == 1 ? 'success' : 'danger' }}">{{ $row->active == 1 ? 'Active' : 'DisActive'}}</span>
+                                        </td>
+                                        <td>
+                                            <a href="{{route('admin.cities.index',$row->id)}}" class="btn btn-primary btn-rounded">cities</a>
                                         </td>
                                         <td class="size-80">
                                             <div class="dropdown">

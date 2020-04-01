@@ -18,9 +18,11 @@ class AccountResource extends JsonResource
             'id' =>$this->id,
             'name' =>$this->name,
             'email' =>$this->email,
-            'active' => (boolean)$this->active,
-            'type' =>$this->type,
+            'phone' =>$this->phone,
             'bio' =>$this->bio,
+            'type' =>$this->type,
+            'company' =>CompanyResource::make($this->company),
+            'country' =>CountryResource::make($this->country),
             'photo' =>$this->photo,
         ];
     }

@@ -19,6 +19,14 @@ class TypeMiddleware
         {
             return $next($request);
         }
+        if ($request->wantsJson())
+        {
+            $result = [
+                'type' => request()->fullUrl(),
+                'title' => "Unauthorized, You Didn't Have Permission To Do It.",
+            ];
+            return response()->json($result , 401);
+        }
         return abort(401);
     }
 }

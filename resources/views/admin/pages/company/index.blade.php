@@ -58,6 +58,7 @@
                                             <a href="{{route('admin.speakers.index',$row->id)}}" class="btn btn-success btn-rounded">Speakers</a>
                                             <a href="{{route('admin.faqs.index',$row->id)}}" class="btn btn-danger btn-rounded">Faqs</a>
                                             <a href="{{route('admin.sliders.index',$row->id)}}" class="btn btn-warning btn-rounded">Sliders</a>
+                                            <a href="{{route('admin.ads.index',$row->id)}}" class="btn btn-info btn-rounded">Ads</a>
                                         </td>
                                         <td>
                                             <a href="{{route('site.register',$row->token)}}">{{route('site.register',$row->token)}}</a>

@@ -15,12 +15,24 @@
 
     <!-- Main navigation -->
     <ul id="side-nav" class="main-menu navbar-collapse collapse">
-
         <li class="{{Route::is('admin.home') ? 'active' : ''}}">
             <a href="{{route('admin.home')}}">
                 <i class="icon-gauge"></i><span class="title">Dashboard</span>
             </a>
         </li>
+        <li class="{{Route::is('admin.countries.*') ? 'active' : ''}}">
+            <a href="{{route('admin.countries.index')}}">
+                <i class="fa fa-building"></i><span class="title">Countries</span>
+            </a>
+        </li>
+        @if (auth()->user()->type == 1)
+        <li class="{{Route::is('admin.admins.*') ? 'active' : ''}}">
+            <a href="{{route('admin.admins.index')}}">
+                <i class="fa fa-users"></i><span class="title">Sales Members</span>
+            </a>
+        </li>
+        @endif
+
         @if (auth()->user()->type == 1)
             <li class="{{Route::is('admin.companies.*') ? 'active' : ''}}">
                 <a href="{{route('admin.companies.index')}}">
@@ -35,19 +47,6 @@
             </li>
         @endif
 
-        <li class="{{Route::is('admin.countries.*') ? 'active' : ''}}">
-            <a href="{{route('admin.countries.index')}}">
-                <i class="fa fa-building"></i><span class="title">Countries</span>
-            </a>
-        </li>
-        @if (auth()->user()->type == 1)
-        <li class="{{Route::is('admin.admins.*') ? 'active' : ''}}">
-            <a href="{{route('admin.admins.index')}}">
-                <i class="fa fa-users"></i><span class="title">Sales Members</span>
-            </a>
-        </li>
-        @endif
-
         <li>
             <a href="{{route('admin.generals.edit',1)}}">
                 <i class="fa fa-print"></i><span class="title">Privacy</span>
@@ -57,6 +56,11 @@
         <li>
             <a href="{{route('admin.generals.edit',2)}}">
                 <i class="fa fa-book"></i><span class="title">Terms & Conditions</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{route('admin.generals.edit',3)}}">
+                <i class="fa fa-info"></i><span class="title">About</span>
             </a>
         </li>
 

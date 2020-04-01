@@ -43,6 +43,17 @@
                         <form action="{{route('admin.generals.update',$general->id)}}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
+                            @if ($general->type == 3)
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="photo">photo</label>
+                                        <input type="file" name="photo" class="form-control" id="photo">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <img src="{{$general->photo}}" style="height: 200px;width: auto">
+                                </div>
+                            @endif
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="summernote">Content</label>

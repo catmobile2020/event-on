@@ -15,7 +15,7 @@ class EventController extends Controller
     {
         $auth_user = auth()->user();
         $company= $auth_user->company;
-        $rows = $company->events()->where(function ($q){
+        $rows = $company->events()->active()->where(function ($q){
             $q->where('start_date','>',today())->orWhere('end_date','>',today());
         })->orderBy('start_date')->get();
         return view('site.pages.event.upcoming',compact('auth_user','company','rows'));
@@ -29,7 +29,7 @@ class EventController extends Controller
             return ['status'=>'error','title'=>'Information','message'=>'You Already Registered on This Event Before!'];
         }
         $auth_user->myEvents()->attach($event);
-        return ['status'=>'success','title'=>'Thank you','message'=>'For registering'];
+        return ['status'=>'success','title'=>'Thank you','message'=>'For Registration'];
     }
 
     public function myCalender()

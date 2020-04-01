@@ -24,11 +24,17 @@ Route::group(['prefix'=>'/admin','namespace'=>'Admin','as'=>'admin.'],function (
         Route::resource('countries','CountryController');
         Route::get('countries/{country}/destroy','CountryController@destroy')->name('countries.destroy');
 
+        Route::resource('{country}/cities','CityController');
+        Route::get('{country}/cities/{city}/destroy','CityController@destroy')->name('cities.destroy');
+
         Route::resource('companies','CompanyController');
         Route::get('companies/{company}/destroy','CompanyController@destroy')->name('companies.destroy');
 
         Route::resource('{company}/sliders','SliderController');
         Route::get('{company}/sliders/{slider}/destroy','SliderController@destroy')->name('sliders.destroy');
+
+        Route::resource('{company}/ads','AdController');
+        Route::get('{company}/ads/{ad}/destroy','AdController@destroy')->name('ads.destroy');
 
         Route::resource('{company}/speakers','SpeakerController');
         Route::get('{company}/speakers/{speaker}/destroy','SpeakerController@destroy')->name('speakers.destroy');
@@ -126,6 +132,4 @@ Route::group(['namespace'=>'Site','as'=>'site.'],function (){
         Route::get('/polls/{poll}/destroy','PollController@destroy')->name('polls.destroy');
         Route::post('/polls/{poll}/add-vote','PollController@addVote')->name('polls.addVote');
     });
-
-
 });

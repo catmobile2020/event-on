@@ -11,7 +11,7 @@
         <!-- Breadcrumb -->
         <ol class="breadcrumb breadcrumb-2">
             <li><a href="{{route('admin.home')}}"><i class="fa fa-home"></i>Home</a></li>
-            <li class="active"><strong>Talks</strong></li>
+            <li class="active"><strong>{{$day->date}} / Talks</strong></li>
         </ol>
         <div class="row">
             <div class="col-lg-12">

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Filters\EventFilter;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
@@ -48,6 +49,11 @@ class Event extends Model
     public function talks()
     {
         return $this->hasManyThrough(Talk::class,Day::class)->has('speakers')->with('speakers');
+    }
+
+    public function scopeFilter($query,EventFilter $filter)
+    {
+        return $filter->apply($query);
     }
 
     public function trash()

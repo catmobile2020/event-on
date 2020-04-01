@@ -7,7 +7,7 @@
         <!-- Breadcrumb -->
         <ol class="breadcrumb breadcrumb-2">
             <li><a href="{{route('admin.home')}}"><i class="fa fa-home"></i>Home</a></li>
-            <li class="active"><strong>Days</strong></li>
+            <li class="active"><strong>{{$event->name}} / Days</strong></li>
         </ol>
         <div class="row">
             <div class="col-lg-12">

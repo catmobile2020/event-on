@@ -52,10 +52,6 @@ class SliderController extends Controller
     public function update(Company $company,SliderRequest $request, Slider $slider)
     {
         $inputs = $request->all();
-        if (!$request->password)
-        {
-            unset($inputs['password']);
-        }
         $slider->update($inputs);
         if ($request->is_image == 1 and $request->photo)
             $this->upload($request->photo,$slider,null,true);

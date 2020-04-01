@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 /**
  * @SWG\Swagger(
  *     basePath="/api",
- *     schemes={"http"},
+ *     schemes={"http","https"},
  *     @SWG\Info(
  *         version="1.0",
  *         title="Event On App",

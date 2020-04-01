@@ -16,7 +16,10 @@ class QuestionResource extends JsonResource
     {
         return [
             'id'=>$this->id,
+            'speaker'=>AccountResource::make($this->speaker),
             'question'=>$this->question,
+            'answers'=>AnswerResource::collection($this->answers),
+            'created_at'=>$this->created_at->format('d-m-Y h:i A'),
         ];
     }
 }

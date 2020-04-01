@@ -13,4 +13,9 @@ class Country extends Model
         $q->where('active',1);
     }
 
+    public function cities()
+    {
+        return $this->hasMany(City::class);
+    }
+
 }

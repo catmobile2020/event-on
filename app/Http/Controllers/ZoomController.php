@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ZoomRequest;
 use App\Register;
+use App\User;
 use Carbon\Carbon;
 use MacsiDigital\Zoom\Zoom;
 
@@ -11,7 +12,7 @@ class ZoomController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     public function index()
@@ -22,7 +23,7 @@ class ZoomController extends Controller
 
     public function store(ZoomRequest $request)
     {
-        $auth_user = auth()->user();
+        $auth_user = User::first();
         $start_date =Carbon::parse($request->start_date);
 
         $zoom = new Zoom();
@@ -33,12 +34,26 @@ class ZoomController extends Controller
 //            $meetings = $zoom->user->find('ibrahimm@cat.com.eg')->meetings()->all();
 //            $users = $zoom->user->all();
 //            $meeting = $zoom->meeting->find('000000000');
-            $meeting = $zoom_user->meetings()->create([
+            $meeting = $zoom_user->webinars()->create([
                 "topic" => $request->name,
                 "type" => 2,
                 "duration" => 60*8,
                 "start_time" => $start_date->format('Y-m-d\TH:i:s'),
+                "settings" => [
+                    "audio"=>'voip',
+                    "host_video"=>true,
+                    "panelists_video"=>true,
+                ],
             ]);
+            $y =$meeting->panelists()->create([
+                'name' => 'mahmoud mohamed',
+                'email' => 'm.mohamed@cat.com.eg',
+            ]);
+//            $x = $meeting->panelists()->create([
+//                'name' => 'huda mahmoud',
+//                'email' => 'huda.fci@gmail.com',
+//            ]);
+dd($meeting,$y);
             $auth_user->registers()->create([
                 'name'=>$request->name,
                 'zoom_link'=>$meeting->join_url,
@@ -47,6 +62,7 @@ class ZoomController extends Controller
             ]);
         }catch (\Exception $exception)
         {
+            dd($exception);
             return back()->with('message',$exception->getMessage());
         }
         return back()->with('message','Created Successfully');
@@ -54,11 +70,12 @@ class ZoomController extends Controller
 
     public function show(Register $register)
     {
-        $auth_user = auth()->user();
+        $auth_user = User::first();
         $meeting_number=$register->meeting_id;
         $api_key = env('ZOOM_KEY');
         $api_sercet = env('ZOOM_SECRET');
-        $role = ($auth_user->id == $register->user_id) ? 1 : 0;
+//        $role = ($auth_user->id == $register->user_id) ? 1 : 0;
+        $role =0;
         $signature = $this->generate_signature($api_key,$api_sercet,$meeting_number,$role);
         return view('zoom.show',compact('register','auth_user','signature','meeting_number','api_key'));
     }
@@ -76,4 +93,5 @@ class ZoomController extends Controller
         //return signature, url safe base64 encoded
         return rtrim(strtr(base64_encode($_sig), '+/', '-_'), '=');
     }
+    // https://zoom.us/wc/743456057/join
 }

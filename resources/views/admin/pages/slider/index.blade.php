@@ -14,7 +14,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading clearfix">
-                        <a href="{{route('admin.sliders.create',$company->id)}}" class="btn btn-primary" style="float: right;">Add Speaker</a>
+                        <a href="{{route('admin.sliders.create',$company->id)}}" class="btn btn-primary" style="float: right;">Add Slider</a>
                     </div>
                     <div class="panel-body">
                         @if (session()->has('message'))

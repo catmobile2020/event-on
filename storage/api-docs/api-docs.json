@@ -11,158 +11,10 @@
     },
     "basePath": "/api",
     "schemes": [
-        "http"
+        "http",
+        "https"
     ],
     "paths": {
-        "/agenda-rating": {
-            "get": {
-                "tags": [
-                    "agenda"
-                ],
-                "summary": "aganda rating questions",
-                "responses": {
-                    "200": {
-                        "description": "object"
-                    }
-                },
-                "security": [
-                    {
-                        "jwt": []
-                    }
-                ]
-            }
-        },
-        "/agenda-rating/{rate_question}": {
-            "post": {
-                "tags": [
-                    "agenda"
-                ],
-                "summary": "submit your vot",
-                "parameters": [
-                    {
-                        "name": "rate_question",
-                        "in": "path",
-                        "required": true,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "value",
-                        "in": "formData",
-                        "type": "integer"
-                    },
-                    {
-                        "name": "options_ids[]",
-                        "in": "formData",
-                        "type": "array",
-                        "items": {
-                            "type": "integer"
-                        },
-                        "collectionFormat": "multi",
-                        "uniqueItems": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "object"
-                    }
-                },
-                "security": [
-                    {
-                        "jwt": []
-                    }
-                ]
-            }
-        },
-        "/agenda-rating-by-string/{rate_question}": {
-            "post": {
-                "tags": [
-                    "agenda"
-                ],
-                "summary": "submit your vot",
-                "parameters": [
-                    {
-                        "name": "rate_question",
-                        "in": "path",
-                        "required": true,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "value",
-                        "in": "formData",
-                        "type": "integer"
-                    },
-                    {
-                        "name": "ids_values",
-                        "in": "formData",
-                        "type": "string",
-                        "format": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "object"
-                    }
-                },
-                "security": [
-                    {
-                        "jwt": []
-                    }
-                ]
-            }
-        },
-        "/auth/register": {
-            "post": {
-                "tags": [
-                    "auth"
-                ],
-                "summary": "register",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "formData",
-                        "required": true,
-                        "type": "string",
-                        "format": "string",
-                        "default": "mahmoud"
-                    },
-                    {
-                        "name": "email",
-                        "in": "formData",
-                        "required": true,
-                        "type": "string",
-                        "format": "string",
-                        "default": "mahmoudnada5050@gmail.com"
-                    },
-                    {
-                        "name": "password",
-                        "in": "formData",
-                        "required": true,
-                        "type": "string",
-                        "format": "string",
-                        "default": "123456"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "token"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    },
-                    "422": {
-                        "description": "Validation Error"
-                    },
-                    "403": {
-                        "description": "Forbidden The client did not have permission to access the requested resource."
-                    }
-                },
-                "security": [
-                    {
-                        "jwt": []
-                    }
-                ]
-            }
-        },
         "/auth/login": {
             "post": {
                 "tags": [
@@ -299,12 +151,29 @@
                 ]
             }
         },
-        "/events": {
+        "/my-schedule": {
             "get": {
                 "tags": [
                     "events"
                 ],
-                "summary": "get all events paginated",
+                "summary": "get all schedule events paginated",
+                "parameters": [
+                    {
+                        "name": "month",
+                        "in": "query",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "topic",
+                        "in": "query",
+                        "type": "string"
+                    },
+                    {
+                        "name": "speaker_id",
+                        "in": "query",
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "object"
@@ -317,23 +186,60 @@
                 ]
             }
         },
-        "/events/{event}/attendance": {
-            "post": {
+        "/events": {
+            "get": {
                 "tags": [
                     "events"
                 ],
-                "summary": "submit your attendance",
+                "summary": "get all events events paginated",
+                "responses": {
+                    "200": {
+                        "description": "object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
+            }
+        },
+        "/events/{event}": {
+            "get": {
+                "tags": [
+                    "events"
+                ],
+                "summary": "get single event",
                 "parameters": [
                     {
                         "name": "event",
                         "in": "path",
                         "required": true,
                         "type": "integer"
-                    },
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "object"
+                    }
+                },
+                "security": [
                     {
-                        "name": "attended",
-                        "in": "formData",
-                        "description": "1=> yes 0=> no",
+                        "jwt": []
+                    }
+                ]
+            }
+        },
+        "/events/{event}/register-to-event": {
+            "post": {
+                "tags": [
+                    "events"
+                ],
+                "summary": "get single event",
+                "parameters": [
+                    {
+                        "name": "event",
+                        "in": "path",
                         "required": true,
                         "type": "integer"
                     }
@@ -350,12 +256,20 @@
                 ]
             }
         },
-        "/setting": {
+        "/events/{event}/days": {
             "get": {
                 "tags": [
-                    "setting"
+                    "events"
                 ],
-                "summary": "get setting details",
+                "summary": "get event days paginated",
+                "parameters": [
+                    {
+                        "name": "event",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "object"
@@ -368,30 +282,12 @@
                 ]
             }
         },
-        "/agenda": {
+        "/days/{day}": {
             "get": {
                 "tags": [
-                    "agenda"
+                    "events"
                 ],
-                "summary": "get Agenda details",
-                "responses": {
-                    "200": {
-                        "description": "object"
-                    }
-                },
-                "security": [
-                    {
-                        "jwt": []
-                    }
-                ]
-            }
-        },
-        "/agenda/{day}": {
-            "get": {
-                "tags": [
-                    "agenda"
-                ],
-                "summary": "get Agenda details",
+                "summary": "get single day",
                 "parameters": [
                     {
                         "name": "day",
@@ -412,32 +308,92 @@
                 ]
             }
         },
-        "/sessions/{session}/rating": {
-            "post": {
+        "/events/{event}/speakers": {
+            "get": {
                 "tags": [
-                    "agenda"
+                    "events"
                 ],
-                "summary": "submit your rate",
+                "summary": "get event speakers",
                 "parameters": [
                     {
-                        "name": "session",
+                        "name": "event",
                         "in": "path",
                         "required": true,
                         "type": "integer"
-                    },
-                    {
-                        "name": "rate",
-                        "in": "formData",
-                        "required": true,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "comment",
-                        "in": "formData",
-                        "type": "string",
-                        "format": "string"
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
+            }
+        },
+        "/about": {
+            "get": {
+                "tags": [
+                    "general"
+                ],
+                "summary": "get about details",
+                "responses": {
+                    "200": {
+                        "description": "object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
+            }
+        },
+        "/privacy": {
+            "get": {
+                "tags": [
+                    "general"
+                ],
+                "summary": "get privacy details",
+                "responses": {
+                    "200": {
+                        "description": "object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
+            }
+        },
+        "/terms": {
+            "get": {
+                "tags": [
+                    "general"
+                ],
+                "summary": "get privacy details",
+                "responses": {
+                    "200": {
+                        "description": "object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
+            }
+        },
+        "/home": {
+            "get": {
+                "tags": [
+                    "home"
+                ],
+                "summary": "get home details (sliders , event , video , ads)",
                 "responses": {
                     "200": {
                         "description": "object"
@@ -468,12 +424,12 @@
                 ]
             }
         },
-        "/speakers/{speaker}": {
+        "/speakers/{speaker}/polls": {
             "get": {
                 "tags": [
-                    "speakers"
+                    "polls"
                 ],
-                "summary": "get single question",
+                "summary": "get speaker polls paginated",
                 "parameters": [
                     {
                         "name": "speaker",
@@ -492,48 +448,36 @@
                         "jwt": []
                     }
                 ]
-            }
-        },
-        "/posts": {
-            "get": {
-                "tags": [
-                    "posts"
-                ],
-                "summary": "get all posts paginated",
-                "parameters": [
-                    {
-                        "name": "per_page",
-                        "in": "query",
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "object"
-                    }
-                },
-                "security": [
-                    {
-                        "jwt": []
-                    }
-                ]
             },
             "post": {
                 "tags": [
-                    "posts"
+                    "polls"
                 ],
-                "summary": "store post",
+                "summary": "add new poll",
                 "parameters": [
                     {
-                        "name": "content",
+                        "name": "speaker",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "question",
                         "in": "formData",
+                        "required": true,
                         "type": "string",
                         "format": "string"
                     },
                     {
-                        "name": "photo",
+                        "name": "options[]",
                         "in": "formData",
-                        "type": "file"
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "multi",
+                        "uniqueItems": true
                     }
                 ],
                 "responses": {
@@ -548,15 +492,15 @@
                 ]
             }
         },
-        "/posts/{post}": {
+        "/polls/{poll}/destroy": {
             "get": {
                 "tags": [
-                    "posts"
+                    "polls"
                 ],
-                "summary": "get single post",
+                "summary": "get single poll",
                 "parameters": [
                     {
-                        "name": "post",
+                        "name": "poll",
                         "in": "path",
                         "required": true,
                         "type": "integer"
@@ -573,14 +517,14 @@
                     }
                 ]
             },
-            "delete": {
+            "post": {
                 "tags": [
-                    "posts"
+                    "polls"
                 ],
-                "summary": "delete post",
+                "summary": "submit your vot",
                 "parameters": [
                     {
-                        "name": "post",
+                        "name": "poll",
                         "in": "path",
                         "required": true,
                         "type": "integer"
@@ -598,127 +542,21 @@
                 ]
             }
         },
-        "/posts/{post}/make-comment": {
+        "/polls/{poll}/add-vote": {
             "post": {
                 "tags": [
-                    "posts"
+                    "polls"
                 ],
-                "summary": "store comment to post",
+                "summary": "submit your vot",
                 "parameters": [
                     {
-                        "name": "post",
+                        "name": "poll",
                         "in": "path",
                         "required": true,
                         "type": "integer"
                     },
                     {
-                        "name": "content",
-                        "in": "formData",
-                        "type": "string",
-                        "format": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "object"
-                    }
-                },
-                "security": [
-                    {
-                        "jwt": []
-                    }
-                ]
-            }
-        },
-        "/practices": {
-            "get": {
-                "tags": [
-                    "practices"
-                ],
-                "summary": "get all practices",
-                "responses": {
-                    "200": {
-                        "description": "object"
-                    }
-                },
-                "security": [
-                    {
-                        "jwt": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "practices"
-                ],
-                "summary": "submit your practice",
-                "parameters": [
-                    {
-                        "name": "practice_id",
-                        "in": "formData",
-                        "required": true,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "practice_option_id",
-                        "in": "formData",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "object"
-                    }
-                },
-                "security": [
-                    {
-                        "jwt": []
-                    }
-                ]
-            }
-        },
-        "/practices/{practice}": {
-            "get": {
-                "tags": [
-                    "practices"
-                ],
-                "summary": "get single practice",
-                "parameters": [
-                    {
-                        "name": "practice",
-                        "in": "path",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "object"
-                    }
-                },
-                "security": [
-                    {
-                        "jwt": []
-                    }
-                ]
-            }
-        },
-        "/practices/options/rating": {
-            "post": {
-                "tags": [
-                    "practices"
-                ],
-                "summary": "submit your practice option rate",
-                "parameters": [
-                    {
-                        "name": "practice_option_id",
-                        "in": "formData",
-                        "required": true,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "rate",
+                        "name": "poll_option_id",
                         "in": "formData",
                         "required": true,
                         "type": "integer"
@@ -859,12 +697,51 @@
                 ]
             }
         },
-        "/questions": {
+        "/speakers/{speaker}/questions": {
             "get": {
                 "tags": [
-                    "Questions"
+                    "questions"
                 ],
-                "summary": "get all Questions paginated",
+                "summary": "get speaker Questions paginated",
+                "parameters": [
+                    {
+                        "name": "speaker",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "questions"
+                ],
+                "summary": "add new question",
+                "parameters": [
+                    {
+                        "name": "speaker",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "question",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "object"
@@ -880,7 +757,7 @@
         "/questions/{question}": {
             "get": {
                 "tags": [
-                    "Questions"
+                    "questions"
                 ],
                 "summary": "get single question",
                 "parameters": [
@@ -903,38 +780,16 @@
                 ]
             }
         },
-        "/polls": {
-            "get": {
-                "tags": [
-                    "voting"
-                ],
-                "summary": "get all polls paginated",
-                "responses": {
-                    "200": {
-                        "description": "object"
-                    }
-                },
-                "security": [
-                    {
-                        "jwt": []
-                    }
-                ]
-            },
+        "/questions/{question}/destroy": {
             "post": {
                 "tags": [
-                    "voting"
+                    "questions"
                 ],
-                "summary": "submit your vot",
+                "summary": "get single question",
                 "parameters": [
                     {
-                        "name": "poll_id",
-                        "in": "formData",
-                        "required": true,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "poll_options_id",
-                        "in": "formData",
+                        "name": "question",
+                        "in": "path",
                         "required": true,
                         "type": "integer"
                     }
@@ -951,18 +806,25 @@
                 ]
             }
         },
-        "/polls/{poll}": {
-            "get": {
+        "/questions/{question}/add-answer": {
+            "post": {
                 "tags": [
-                    "voting"
+                    "questions"
                 ],
-                "summary": "get single poll",
+                "summary": "submit your vot",
                 "parameters": [
                     {
-                        "name": "poll",
+                        "name": "question",
                         "in": "path",
                         "required": true,
                         "type": "integer"
+                    },
+                    {
+                        "name": "answer",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
                     }
                 ],
                 "responses": {

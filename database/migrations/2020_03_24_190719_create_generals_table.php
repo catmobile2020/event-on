@@ -16,7 +16,7 @@ class CreateGeneralsTable extends Migration
         Schema::create('generals', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('value');
-            $table->tinyInteger('type'); // 1=>privacy 2=>terms
+            $table->tinyInteger('type'); // 1=>privacy 2=>terms  3=>about
             $table->timestamps();
         });
     }

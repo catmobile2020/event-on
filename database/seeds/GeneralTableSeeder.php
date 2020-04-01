@@ -14,5 +14,6 @@ class GeneralTableSeeder extends Seeder
     {
         General::create(['value'=>'Your Privacy','type'=>1]);
         General::create(['value'=>'Your Terms','type'=>2]);
+        General::create(['value'=>'About Us','type'=>3]);
     }
 }

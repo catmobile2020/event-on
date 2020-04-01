@@ -17,6 +17,7 @@ class CreateCompaniesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('website')->nullable();
+            $table->string('intro_video')->nullable();
             $table->text('description')->nullable();
             $table->boolean('active')->default(0);
             $table->string('token');

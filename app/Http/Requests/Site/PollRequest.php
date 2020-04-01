@@ -25,7 +25,7 @@ class PollRequest extends FormRequest
     {
         return [
             'question'=>'required',
-//            'options'=>'required|array|min:1'
+            'options'=>'required|array|min:1'
         ];
     }
 }

@@ -26,25 +26,7 @@ class UserPollRequest extends FormRequest
     public function rules()
     {
         return [
-            'poll_id'=>'required|exists:polls,id',
-            'poll_options_id'=>'required|exists:poll_options,id'
+            'poll_option_id'=>'required|exists:poll_options,id'
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        $errors = [];
-        foreach ($validator->errors()->messages() as $input=>$error)
-        {
-            $errors[]=['name'=>$input,'reason'=>$error];
-        }
-        $result = [
-            'type' => $this->url(),
-            'title' => "Your request parameters didn't validate.",
-            'invalid-params' => $errors,
-            'messages' => $validator->errors()->all()
-        ];
-
-        throw new HttpResponseException(response()->json($result , 422));
     }
 }

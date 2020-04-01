@@ -18,7 +18,7 @@ class SpeakerController extends Controller
         {
             $speakers = $speakers->merge($talk->speakers);
         }
-        $rows = $speakers->unique();
+        $rows = $speakers->unique('id');
         return view('site.pages.speaker.index',compact('event','rows'));
     }
 

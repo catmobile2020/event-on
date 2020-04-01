@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    protected $fillable=['name','website','description','active','token'];
+    protected $fillable=['name','website','intro_video','description','active','token'];
 
     public function image()
     {
@@ -52,6 +52,11 @@ class Company extends Model
     public function sliders()
     {
         return $this->hasMany(Slider::class);
+    }
+
+    public function ads()
+    {
+        return $this->hasMany(Ad::class);
     }
 
     public function trash()
