@@ -21,4 +21,10 @@ class GeneralController extends Controller
         $row = General::where('type',2)->first();
         return view('site.pages.general',compact('row','title'));
     }
+
+    public function about()
+    {
+        $row = General::where('type',3)->first();
+        return view('site.pages.about',compact('row'));
+    }
 }

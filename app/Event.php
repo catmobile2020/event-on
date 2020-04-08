@@ -3,11 +3,14 @@
 namespace App;
 
 use App\Filters\EventFilter;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
     protected $fillable=['name','description','start_date','end_date','city','active','address','lat','lng','company_id'];
+
+    protected $dates=['start_date','end_date'];
 
     public function image()
     {
@@ -54,6 +57,26 @@ class Event extends Model
     public function scopeFilter($query,EventFilter $filter)
     {
         return $filter->apply($query);
+    }
+
+    public function getStatusAttribute()
+    {
+        if ($this->end_date < today())
+        {
+            $status = 1; // completed
+        }elseif ($this->start_date > today())
+        {
+            $status = 0; // Not Start Yet
+        }else
+        {
+            $status = 2; // live now
+        }
+        return $status;
+    }
+
+    public function getRemainingTimeAttribute()
+    {
+        return $this->start_date->diff(now())->format('%dd %hh %im');
     }
 
     public function trash()

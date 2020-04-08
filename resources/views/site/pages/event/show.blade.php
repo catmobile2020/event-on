@@ -8,54 +8,220 @@
     <main class="content__main">
         <div class="home">
             <div class="container">
-                <div class="row no-gutters d-flex justify-content-center">
-                    <div class="col-lg-10 col-12 mt-1">
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="data:image/jpeg;base64,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" class="img-fluid w-100" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSxx57uGHu23c4mhSvRx5UphsyyYEa7z0cl0pDkhdSLKv_8bicT" class="img-fluid w-100" alt="">
-                                </div>
-                            </div>
-                            <!-- Add Arrows -->
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-10">
+                        <br>
+                        <h4 class="color-dasboard p-2"><strong>Schedule / {{$event->name}}</strong></h4>
+                        <hr>
                     </div>
-                    <div class="col-12 mt-1">
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-lg-10 col-sm-12 col-md-6">
-                                <div class="block-content-agenda m-0 mt-3 mb-5">
-                                    <div class="row no-gutters">
-                                        <div class="agenda-data col-12 ">
-                                            <div class="block-name">
-                                                <span>Info Event</span>
-                                            </div>
-                                            <div class="block-data">
-                                                <p>It is a long established fact that a
-                                                    reader will It is a long established fact that a
-                                                    reader will It is a long established fact that a
-                                                    reader will It is a long established fact that a
-                                                    reader will It is a long established fact that a
-                                                    reader will  </p>
+                    <div class="col-lg-10 col-sm-12 col-md-11">
+                        <div class="block-content-agenda m-0 mt-3 mb-5">
+                            <div class="row no-gutters">
+                                <div class="col-12">
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="speakers-tab" data-toggle="tab" href="#speakers" role="tab" aria-controls="speakers" aria-selected="false">Speakers</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="agenda-tab" data-toggle="tab" href="#agenda" role="tab" aria-controls="agenda" aria-selected="false">Agenda</a>
+                                        </li>
+
+                                    </ul>
+                                    <div class="tab-content" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                            <div class="block-content-d p-2 mb-3">
+                                                <div class="row no-gutters ">
+                                                    <div class="col-lg-1 col-sm-12 d-flex align-items-stretch">
+                                                        <div class="session-data block-content-d">
+                                                            <div class="date text-left">
+                                                                <h1 class="m-0">{{$event->start_date->format('d')}}</h1>
+                                                                <h2>{{$event->start_date->format('M')}}</h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-11 col-sm-12">
+                                                        <div class="calander-data">
+                                                            <div class="block-name">
+                                                                <h1 class="m-0">{{$event->name}}</h1>
+                                                                <h3>
+                                                                    {{$event->start_date->format('d-m-Y')}} : {{$event->end_date->format('d-m-Y')}}
+                                                                    <span  class="float-right time-r">Remaining Time :{{$event->remaining_time}}</span>
+                                                                </h3>
+                                                            </div>
+                                                            <div class="block-data">
+                                                                {!! $event->description !!}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="tab-pane fade" id="speakers" role="tabpanel" aria-labelledby="speakers-tab">
+                                            <div class="row">
+                                                @foreach($speakers as $speaker)
+                                                    <div class="col-12">
+                                                    <div class="block-content-speaker">
+                                                        <div class="d-flex justify-content-start " style=" background-color: #f4f6f8; ">
+                                                            <div class="session-data-speaker">
+                                                                <div class="date">
+                                                                    <img src="{{$speaker->photo}}" alt="{{$speaker->name}}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="speaker-data">
+                                                                <div class="block-name d-flex justify-content-between">
+                                                                    <span class="color-text pt-2">{{$speaker->name}}</span>
+                                                                    <a class="primary-button-speaker" data-toggle="modal" data-target="#more-data-speaker_{{$speaker->id}}">Learn More</a>
+                                                                </div>
+                                                                <div class="block-data">
+                                                                    <p>{{Str::limit(strip_tags($speaker->bio),100)}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="agenda" role="tabpanel" aria-labelledby="agenda-tab">
+                                            @foreach($days as $day)
+                                            <div class="row">
+                                                <div class="col-12 p-2">
+                                                    <div class="pl-5 pr-5">
+                                                        <br>
+                                                        <h4 class="color-text"><strong>{{$day->title}}</strong> {{$day->date->isoFormat('LLL')}}</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="pl-5 pr-5">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                            <tr>
+                                                                <th scope="col">From - To</th>
+                                                                <th scope="col">Session Topic</th>
+                                                                <th scope="col">Description</th>
+                                                                <th scope="col">Speaker</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @foreach($day->talks as $talk)
+                                                            <tr>
+                                                                <th scope="row" STYLE="font-family: tahoma;">{{$talk->time_from}} - {{$talk->time_to}}</th>
+                                                                <td>{{$talk->title}}</td>
+                                                                <td>{!! $talk->desc !!}</td>
+                                                                <td>
+                                                                    @foreach($talk->speakers as $speaker)
+                                                                        <span>Dr: {{$speaker->name}}</span>
+                                                                        @if (!$loop->last)
+                                                                            ,
+                                                                        @endif
+                                                                    @endforeach
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="register-now-a pointer eventToRegister" data-url="{{route('site.events.registerToEvent',$event->id)}}">
+                                            Register Now
+                                        </div>
                                     </div>
+
                                 </div>
+
                             </div>
+                        </div>
+                    </div>
+                </div><br><br><br><br>
+            </div>
+        </div>
+    </main>
+@endsection
+
+@section('modals')
+    @foreach($speakers as $speaker)
+        <div class="modal fade" id="more-data-speaker_{{$speaker->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title color-text">{{$speaker->name}} Biography</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4 text-left">
+                            <img src="{{$speaker->photo}}" width="110px" alt="{{$speaker->name}}">
+                            <br>
+                            <br>
+                            <span class="color-text weight "><strong>{{$speaker->name}}</strong></span>
+                            <hr>
+                            <div class="info-bio">
+                                <p class="color-text weight m-0">{{$speaker->specialty}}</p>
+                                <p class="color-text m-0">{{$speaker->address}}</p>
+                                <p class="color-text m-0">{{$speaker->city}}</p>
+                                <p class="color-text m-0">{{$speaker->phone}}</p>
+                                <p class="color-text m-0">{{$speaker->email}}</p>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            {!! $speaker->bio !!}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-    <section class="live-event-now">
-        <a href="live-event.html">
-            <div class="event-now">
-                <p class="p-0 m-0">Live Now</p>
-            </div>
-        </a>
-    </section>
+    </div>
+    @endforeach
+@endsection
+
+@section('js')
+    <style>
+        .primary-button-speaker {
+            background-color: #8e1843 !important;
+            border-color: #8e1843 !important;
+            color: #fff !important;
+            padding: 6px;
+            font-size: 12px;
+            font-weight: 400;
+        }
+        .primary-button-speaker:hover {
+            color: #fff !important;
+        }
+    </style>
+    <script>
+        $(document).on('click','.eventToRegister',function ($e) {
+            $e.preventDefault();
+            let ele=$(this);
+            $.ajax({
+                url:ele.data('url'),
+                success:function (result) {
+                    Swal.fire(
+                        result.title,
+                        result.message,
+                        result.status,
+                    ).then((result) => {
+                        if (result.value) {
+                            window.location.reload();
+                        }
+                    })
+                },
+                error:function (errors) {
+                    Swal.fire(
+                        'error',
+                        errors,
+                        'error'
+                    )
+                }
+            });
+        });
+    </script>
 @endsection

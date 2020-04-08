@@ -15,16 +15,11 @@ class EventResource extends JsonResource
      */
     public function toArray($request)
     {
-//        $status = Carbon::parse($this->end_date)->diffInMinutes(today());
-        $status = null;
-        if ($this->end_date < today())
-        {
-            $status = 'Completed';
-        }
         return [
             'id'=>$this->id,
             'name'=>$this->name,
-            'status'=>$status,
+            'status'=>$this->status,
+            'remaining_time'=>$this->remaining_time,
             'description'=>$this->description,
             'start_date'=>Carbon::parse($this->start_date)->isoFormat('LL'),
             'end_date'=>Carbon::parse($this->end_date)->isoFormat('LL'),

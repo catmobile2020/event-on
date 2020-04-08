@@ -10,7 +10,6 @@ use Illuminate\Routing\Controller as BaseController;
 /**
  * @SWG\Swagger(
  *     basePath="/api",
- *     schemes={"http","https"},
  *     @SWG\Info(
  *         version="1.0",
  *         title="Event On App",
@@ -42,3 +41,9 @@ class Controller extends BaseController
         return response()->json($result , $status);
     }
 }
+/**
+Web API Key
+AIzaSyDGYbRFvB48J_Ebu_LiDQR7JCMFKA05okw
+App ID
+1:760666949958:android:705eb91017940970fe7d47
+ */

@@ -21,17 +21,15 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->tinyInteger('active')->default(1);
             $table->longText('bio')->nullable();
-            $table->text('specialization')->nullable();
+            $table->text('specialty')->nullable();
             $table->text('address')->nullable();
             $table->tinyInteger('type')->default(1); // 1=>speaker   2=>attendee
             $table->string('password');
             $table->longText('reset_token')->nullable();
+            $table->text('city')->nullable();
 
             $table->unsignedBigInteger('company_id')->index();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-
-            $table->unsignedBigInteger('city_id')->nullable()->index();
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
 
             $table->unsignedBigInteger('country_id')->nullable()->index();
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');

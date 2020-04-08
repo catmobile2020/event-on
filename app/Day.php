@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Day extends Model
 {
     protected $fillable=['title','date','active','event_id'];
-
+protected $dates=['date'];
     public function image()
     {
         return $this->morphOne('App\Image', 'imageable')->withDefault();

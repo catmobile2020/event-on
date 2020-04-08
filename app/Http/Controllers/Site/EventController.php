@@ -3,22 +3,31 @@
 namespace App\Http\Controllers\Site;
 
 use App\Event;
+use App\Filters\EventFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\RateRequest;
+use App\Http\Resources\EventResource;
 use App\Talk;
 use App\User;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function upcoming()
+    public function schedule(EventFilter $filter)
     {
         $auth_user = auth()->user();
-        $company= $auth_user->company;
-        $rows = $company->events()->active()->where(function ($q){
-            $q->where('start_date','>',today())->orWhere('end_date','>',today());
-        })->orderBy('start_date')->get();
-        return view('site.pages.event.upcoming',compact('auth_user','company','rows'));
+        $rows = $auth_user->myEvents()->filter($filter)->orderByDesc('start_date')->paginate($this->web_paginate_num);
+        $company = auth()->user()->company;
+        $speakers =$company->speakers()->active()->get();
+        return view('site.pages.event.schedule',compact('auth_user','rows','speakers'));
+    }
+
+    public function events()
+    {
+        $auth_user = auth()->user();
+        $company = $auth_user->company;
+        $rows = $company->events()->active()->orderByDesc('start_date')->paginate($this->web_paginate_num);
+        return view('site.pages.event.index',compact('auth_user','company','rows'));
     }
 
     public function registerToEvent(Event $event)
@@ -32,20 +41,22 @@ class EventController extends Controller
         return ['status'=>'success','title'=>'Thank you','message'=>'For Registration'];
     }
 
-    public function myCalender()
-    {
-        $auth_user = auth()->user();
-        $rows = $auth_user->myEvents()->orderBy('start_date')->get();
-        return view('site.pages.event.calender',compact('auth_user','rows'));
-    }
-
     public function show(Event $event)
     {
-        if (\request()->wantsJson())
+        $speakers =collect([]);
+        $talks =  $event->talks;
+        foreach ($talks as $talk)
         {
-            return $event;
+            $speakers = $speakers->merge($talk->speakers);
         }
-        return view('site.pages.event.show',compact('event'));
+        $speakers = $speakers->unique('id');
+        $days =$event->days()->active()->with('talks')->get();
+        return view('site.pages.event.show',compact('event','speakers','days'));
+    }
+
+    public function live(Event $event)
+    {
+        return view('site.pages.event.live',compact('event'));
     }
 
     public function agenda(Event $event,Request $request)

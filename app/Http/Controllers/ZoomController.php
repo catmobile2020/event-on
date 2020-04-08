@@ -34,26 +34,23 @@ class ZoomController extends Controller
 //            $meetings = $zoom->user->find('ibrahimm@cat.com.eg')->meetings()->all();
 //            $users = $zoom->user->all();
 //            $meeting = $zoom->meeting->find('000000000');
-            $meeting = $zoom_user->webinars()->create([
+            $meeting = $zoom_user->meetings()->create([
                 "topic" => $request->name,
+                "agenda" => "Meeting description.",
                 "type" => 2,
+                "password" => 7854125,
                 "duration" => 60*8,
                 "start_time" => $start_date->format('Y-m-d\TH:i:s'),
-                "settings" => [
-                    "audio"=>'voip',
-                    "host_video"=>true,
-                    "panelists_video"=>true,
-                ],
             ]);
-            $y =$meeting->panelists()->create([
-                'name' => 'mahmoud mohamed',
-                'email' => 'm.mohamed@cat.com.eg',
-            ]);
+//            $y =$meeting->panelists()->create([
+//                'name' => 'mahmoud mohamed',
+//                'email' => 'm.mohamed@cat.com.eg',
+//            ]);
 //            $x = $meeting->panelists()->create([
 //                'name' => 'huda mahmoud',
 //                'email' => 'huda.fci@gmail.com',
 //            ]);
-dd($meeting,$y);
+//dd($meeting,$y);
             $auth_user->registers()->create([
                 'name'=>$request->name,
                 'zoom_link'=>$meeting->join_url,

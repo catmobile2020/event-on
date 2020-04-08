@@ -17,6 +17,7 @@ Route::group(['namespace' => 'Api'] ,function (){
 
         Route::get('/home','HomeController@home');
         Route::get('/speakers','HomeController@speakers');
+        Route::get('/speakers/{speaker}','HomeController@singleSpeaker');
         Route::get('/my-schedule','EventController@schedule');
         Route::get('/events','EventController@events');
         Route::get('/events/{event}','EventController@show');
@@ -24,11 +25,6 @@ Route::group(['namespace' => 'Api'] ,function (){
         Route::get('/events/{event}/days','EventController@days');
         Route::get('/days/{day}','EventController@singleDay');
         Route::get('/events/{event}/speakers','EventController@speakers');
-
-
-        Route::get('/agenda-rating','AgendaRateQuestionController@index');
-        Route::post('/agenda-rating/{rate_question}','AgendaRateQuestionController@submitRating');
-        Route::post('/agenda-rating-by-string/{rate_question}','AgendaRateQuestionController@submitRatingByString');
 
 
         Route::get('/speakers/{speaker}/questions','QuestionController@index');

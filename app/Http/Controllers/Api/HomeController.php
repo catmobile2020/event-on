@@ -7,6 +7,7 @@ use App\Http\Resources\adResource;
 use App\Http\Resources\EventsResource;
 use App\Http\Resources\SliderResource;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -55,5 +56,29 @@ class HomeController extends Controller
         $company = auth()->user()->company;
         $rows =$company->speakers()->active()->paginate($this->api_paginate_num);
         return AccountResource::collection($rows);
+    }
+
+    /**
+     *
+     * @SWG\Get(
+     *      tags={"speakers"},
+     *      path="/speakers/{speaker}",
+     *      summary="get speaker",
+     *      security={
+     *          {"jwt": {}}
+     *      },@SWG\Parameter(
+     *         name="speaker",
+     *         in="path",
+     *         required=true,
+     *         type="integer",
+     *      ),
+     *      @SWG\Response(response=200, description="object"),
+     * )
+     * @param User $speaker
+     * @return AccountResource
+     */
+    public function singleSpeaker(User $speaker)
+    {
+        return AccountResource::make($speaker);
     }
 }

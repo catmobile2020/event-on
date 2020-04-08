@@ -14,18 +14,16 @@
 
 <div class="grid" id="app">
     <div class="grid__content">
-        @include('site.layouts.header')
+        @if (!Route::is('site.events.live'))
+            @include('site.layouts.header')
+        @endif
 
-        @include('site.layouts.sidebar')
+{{--        @include('site.layouts.sidebar')--}}
 
             @yield('content')
-        <!--                <section class="live-event-now">-->
-        <!--                    <div class="event-now">-->
-
-        <!--                    </div>-->
-        <!--                </section>-->
     </div>
 </div>
+@yield('modals')
 <script src="{{asset('assets/site/js/jquery-1.11.0.js')}}"></script>
 <script src="{{asset('assets/site/js/bootstrap.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

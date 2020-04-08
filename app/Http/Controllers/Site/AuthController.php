@@ -8,7 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\LoginRequest;
 use App\Http\Requests\Site\RegisterRequest;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Slakbal\Gotowebinar\Facade\Registrants;
+use Slakbal\Gotowebinar\Facade\Webinars;
 
 class AuthController extends Controller
 {
@@ -19,6 +22,51 @@ class AuthController extends Controller
 
     public function getLogin()
     {
+//        $from = Carbon::now()->addHour();
+//        $to = Carbon::now()->addHours(3);
+//
+//
+//        try {
+//            $webinar = Webinars::subject('Event Name again 33')
+//                ->description('Event Description again 66666')
+//                ->timeFromTo($from, $to)
+//                ->timeZone('Africa/Cairo')
+//                ->singleSession()
+//                ->noEmailReminder()
+//                ->noEmailAttendeeFollowUp()
+//                ->noEmailAbsenteeFollowUp()
+//                ->noEmailConfirmation()
+//                ->create();
+
+//            $webinar =  Webinars::webinarKey('7337381247287029516')
+//                ->get();
+
+//            $registrant =Registrants::webinarKey('7337381247287029516')
+//                ->firstName('huda')
+//                ->lastName('ahmed')
+//                ->timeZone('Africa/Cairo')
+//                ->email('huda@gmail.com')
+//                ->resendConfirmation()
+//                ->questionsAndComments('Some First Question api')
+//                ->create();
+//            $registrant = Registrants::webinarKey('7337381247287029516')
+//                ->get();
+//            return response()->json($webinar);
+//        } catch (Slakbal\Gotowebinar\Exception\GotoException $e) {
+//            return $e->getMessage();
+//        }
+
+
+
+//        https://app.gotomeeting.com/index.html?meetingid=675824501
+
+
+
+
+
+
+
+
      return view('site.pages.auth.login');
     }
 

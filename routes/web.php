@@ -12,8 +12,8 @@ Route::group(['prefix'=>'/admin','namespace'=>'Admin','as'=>'admin.'],function (
     Route::group(['middleware'=>['auth:admin']],function (){
         Route::get('/','HomeController@index')->name('home');
 
-        Route::get('/profile','ProfileController@index')->name('profile');
-        Route::post('/profile','ProfileController@update')->name('profile.update');
+//        Route::get('/profile','ProfileController@index')->name('profile');
+//        Route::post('/profile','ProfileController@update')->name('profile.update');
 
         Route::get('/generals/{type}','GeneralController@edit')->name('generals.edit');
         Route::put('/generals{general}','GeneralController@update')->name('generals.update');
@@ -107,13 +107,14 @@ Route::group(['namespace'=>'Site','as'=>'site.'],function (){
     Route::group(['middleware'=>['auth:web']],function (){
         Route::get('/account','AccountController@me')->name('profile');
         Route::get('/home','HomeController@index')->name('home');
-        Route::get('/about','HomeController@about')->name('about');
         Route::get('/faqs','HomeController@faqs')->name('faqs');
-        Route::get('/upcoming-events','EventController@upcoming')->name('events.upcoming');
-        Route::get('/register-to-event/{event}','EventController@registerToEvent')->name('events.registerToEvent');
-        Route::get('/my-calender','EventController@myCalender')->name('events.myCalender');
-
+        Route::get('/about','GeneralController@about')->name('about');
+        Route::get('/schedule','EventController@schedule')->name('events.schedule');
+        Route::get('/events','EventController@events')->name('events.index');
         Route::get('/events/{event}','EventController@show')->name('events.show');
+        Route::get('/events/{event}/live','EventController@live')->name('events.live');
+        Route::get('/register-to-event/{event}','EventController@registerToEvent')->name('events.registerToEvent');
+
         Route::get('/talks/{talk}/vote','EventController@getTalkVote')->name('events.talk.vote');
         Route::get('/talks/{talk}/vote','EventController@postTalkVote');
 
