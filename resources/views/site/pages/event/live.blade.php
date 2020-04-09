@@ -173,6 +173,7 @@
                 </div>
             </div>
         </div>
+        @if($talks->where('time_from', '<=', date('H:i:s'))->where('time_to', '>=', date('H:i:s'))->first())
         <div class="modal fade" id="rate-att" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -194,28 +195,29 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="speaker" role="tabpanel" aria-labelledby="speaker-tab">
                                 <div class="d-flex justify-content-start" style=" background-color: #f4f6f8; margin-top: 20px">
-                                    <div class="session-data-speaker">
-                                        <div class="date">
-                                            <img src="https://profiles.onshape.com/62ed0e33daab89201831c978581fce85e765efb88b09d62d88d1bf278480a499.png" alt="">
+                                    @foreach($talks->where('time_from', '<=', date('H:i:s'))->where('time_to', '>=', date('H:i:s'))->first()->speakers as $speaker)
+                                        <div class="session-data-speaker">
+                                            <div class="date">
+                                                <img src="{{$speaker->photo}}" alt="{{$speaker->name}}">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="speaker-data">
-                                        <div class="block-name d-flex justify-content-between">
-                                            <span class="color-text pt-2">Nabil Elsheikh</span>
-                                            <a href="event.html" class="primary-button-speaker" data-toggle="modal" data-target="#rate-speaker">Rate Speaker</a>
+                                        <div class="speaker-data">
+                                            <div class="block-name d-flex justify-content-between">
+                                                <span class="color-text pt-2">DR {{ $speaker->name }}</span>
+                                                <a href="{{ $speaker->id }}" class="primary-button-speaker" data-toggle="modal" data-target="#rate-speaker">Rate Speaker</a>
+                                            </div>
+                                            <div class="block-data">
+                                                <p>{{$speaker->specialty}}</p>
+                                            </div>
                                         </div>
-                                        <div class="block-data">
-                                            <p>It is a long established fact that a
-                                                reader will  </p>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="session" role="tabpanel" aria-labelledby="session-tab">
                                 <div class="block-content">
-                                    <p><strong>Session Name : </strong></p>
+                                    <p><strong>Session Name : {{$talks->where('time_from', '<=', date('H:i:s'))->where('time_to', '>=', date('H:i:s'))->first()->title }}</strong></p>
                                     <p>
-                                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
+                                        {!!  $talks->where('time_from', '<=', date('H:i:s'))->where('time_to', '>=', date('H:i:s'))->first()->desc !!}
                                     </p>
                                     <div class="col-12">
                                         <fieldset class="rating">
@@ -245,6 +247,8 @@
                 </div>
             </div>
         </div>
+        @endif
+
         <div class="modal fade" id="rate-speaker" tabindex="-1" role="dialog"  aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -348,19 +352,19 @@
                             <div class="col-12 mb-3">
                                 <p><strong>The sessions were informative and beneficial</strong></p>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="agree" name="sessions" class="custom-control-input">
-                                    <label class="custom-control-label" for="agree">Agree</label>
+                                    <input type="radio" id="agree" value="4" name="sessions" class="custom-control-input">
+                                    <label class="custom-control-label"  for="agree">Agree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="notsure" name="sessions" class="custom-control-input">
+                                    <input type="radio" id="notsure" value="3"  name="sessions" class="custom-control-input">
                                     <label class="custom-control-label" for="notsure">Not sure</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="disagree" name="sessions" class="custom-control-input">
+                                    <input type="radio" id="disagree" value="2" name="sessions" class="custom-control-input">
                                     <label class="custom-control-label" for="disagree">Disagree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="Strongly" name="sessions" class="custom-control-input">
+                                    <input type="radio" id="Strongly" value="1" name="sessions" class="custom-control-input">
                                     <label class="custom-control-label" for="Strongly">Strongly disagree</label>
                                 </div>
 
@@ -368,57 +372,57 @@
                             <div class="col-12 mb-3">
                                 <p><strong>The inter activity was stimulating</strong></p>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="agree2" name="activity" class="custom-control-input">
+                                    <input type="radio" id="agree2" value="4" name="activity" class="custom-control-input">
                                     <label class="custom-control-label" for="agree2">Agree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="notsure2" name="activity" class="custom-control-input">
+                                    <input type="radio" id="notsure2" value="3" name="activity" class="custom-control-input">
                                     <label class="custom-control-label" for="notsure2">Not sure</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="disagree2" name="activity" class="custom-control-input">
+                                    <input type="radio" id="disagree2" value="2" name="activity" class="custom-control-input">
                                     <label class="custom-control-label" for="disagree2">Disagree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="Strongly2" name="activity" class="custom-control-input">
+                                    <input type="radio" id="Strongly2" value="1" name="activity" class="custom-control-input">
                                     <label class="custom-control-label" for="Strongly2">Strongly disagree</label>
                                 </div>
                             </div>
                             <div class="col-12 mb-3">
                                 <p><strong>The speaker/material was interesting</strong></p>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="agree3" name="interesting" class="custom-control-input">
+                                    <input type="radio" id="agree3" value="4" name="interesting" class="custom-control-input">
                                     <label class="custom-control-label" for="agree3">Agree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="notsure3" name="interesting" class="custom-control-input">
+                                    <input type="radio" id="notsure3" value="3" name="interesting" class="custom-control-input">
                                     <label class="custom-control-label" for="notsure3">Not sure</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="disagree3" name="interesting" class="custom-control-input">
+                                    <input type="radio" id="disagree3" value="2" name="interesting" class="custom-control-input">
                                     <label class="custom-control-label" for="disagree3">Disagree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="Strongly3" name="interesting" class="custom-control-input">
+                                    <input type="radio" id="Strongly3" value="1" name="interesting" class="custom-control-input">
                                     <label class="custom-control-label" for="Strongly3">Strongly disagree</label>
                                 </div>
                             </div>
                             <div class="col-12 mb-3">
                                 <p><strong>The overall experience met my expectations</strong></p>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="agree4" name="experience" class="custom-control-input">
+                                    <input type="radio" id="agree4" value="4" name="experience" class="custom-control-input">
                                     <label class="custom-control-label" for="agree4">Agree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="notsure4" name="experience" class="custom-control-input">
+                                    <input type="radio" id="notsure4" value="3" name="experience" class="custom-control-input">
                                     <label class="custom-control-label" for="notsure4">Not sure</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="disagree4" name="experience" class="custom-control-input">
+                                    <input type="radio" id="disagree4" value="2" name="experience" class="custom-control-input">
                                     <label class="custom-control-label" for="disagree4">Disagree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="Strongly4" name="experience" class="custom-control-input">
+                                    <input type="radio" id="Strongly4" value="1" name="experience" class="custom-control-input">
                                     <label class="custom-control-label" for="Strongly4">Strongly disagree</label>
                                 </div>
                             </div>
@@ -427,7 +431,7 @@
                                 <textarea class="form-control" id="additional-comments" rows="3"></textarea>
                             </div>
                             <div class="col-12">
-                                <input type="submit" VALUE="Submit" class="btn btn-submit">
+                                <input type="submit" id="submit-feedback" VALUE="Submit" class="btn btn-submit">
                             </div>
                         </div>
                     </div>
@@ -1147,6 +1151,40 @@
             $('.more-fields').on("click",".remove_field", function(e){
                 e.preventDefault(); $(this).parent('div').remove(); x--;
             })
+        });
+
+        $('#submit-feedback').on('click', function () {
+            var sessions = $('input[name=sessions]:checked').val(),
+                activity = $('input[name=activity]:checked').val(),
+                experience = $('input[name=experience]:checked').val(),
+                interesting = $('input[name=interesting]:checked').val(),
+                additional = $('#additional-comments').val();
+
+            if(sessions > 0 && activity > 0 && experience > 0 && interesting > 0)
+            {
+                $.post('/add-feedback/{{$selected_day->id}}', {
+                    "_token": "{{ csrf_token() }}",
+                    "q1": sessions,
+                    "q2": activity,
+                    "q3": interesting,
+                    "q4": experience,
+                    "comment": additional
+                }, function (data) {
+                    if(data.state == 0)
+                    {
+                        $('#feedback-att .modal-header .modal-title').html("Result");
+                        $('#feedback-att .modal-body').html('<div class="alert alert-danger">'+ data.msg +'</div>');
+                        $("#submit-feedback").remove();
+                    }else{
+                        $('#feedback-att .modal-header .modal-title').html("Result");
+                        $('#feedback-att .modal-body').html('<div class="alert alert-success">'+ data.msg +'</div>');
+                        $("#submit-feedback").remove();
+                    }
+                })
+            }else{
+                alert('PLease fill all data');
+            }
+
         });
         $(function() {
             $(".fullscreen").click(function() {

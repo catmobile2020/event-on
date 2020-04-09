@@ -39,6 +39,11 @@ protected $dates=['date'];
         return $this->morphMany(Rate::class, 'rateable');
     }
 
+    public function feedback()
+    {
+        return $this->hasMany(Feedback::class);
+    }
+
     public function trash()
     {
         $photo = public_path().$this->image->url;

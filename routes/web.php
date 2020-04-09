@@ -133,5 +133,7 @@ Route::group(['namespace'=>'Site','as'=>'site.'],function (){
         Route::post('/speakers/{speaker}/polls','PollController@store');
         Route::get('/polls/{poll}/destroy','PollController@destroy')->name('polls.destroy');
         Route::post('/polls/{poll}/add-vote','PollController@addVote')->name('polls.addVote');
+
+        Route::post('/add-feedback/{day}', 'FeedbackController@addFeedback');
     });
 });
