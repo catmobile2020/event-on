@@ -112,6 +112,7 @@ Route::group(['namespace'=>'Site','as'=>'site.'],function (){
         Route::get('/schedule','EventController@schedule')->name('events.schedule');
         Route::get('/events','EventController@events')->name('events.index');
         Route::get('/events/{event}','EventController@show')->name('events.show');
+//        Route::get('/current-day/{event}','EventController@curAgenda')->name('events.cur');
         Route::get('/events/{event}/live','EventController@live')->name('events.live');
         Route::get('/register-to-event/{event}','EventController@registerToEvent')->name('events.registerToEvent');
 

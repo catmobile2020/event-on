@@ -12,7 +12,7 @@
                 <!-- User action menu -->
                 <ul class="dropdown-menu">
 
-                    <li><a href="{{route('admin.profile')}}"><i class="icon-user"></i>My profile</a></li>
+{{--                    <li><a href="{{route('admin.profile')}}"><i class="icon-user"></i>My profile</a></li>--}}
                     <li class="divider"></li>
 {{--                    <li><a href="#"><i class="icon-cog"></i>Account settings</a></li>--}}
                     <li><a href="{{route('admin.logout')}}"><i class="icon-logout"></i>Logout</a></li>

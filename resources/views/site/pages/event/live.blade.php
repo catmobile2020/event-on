@@ -285,7 +285,7 @@
             </div>
         </div>
         <div class="modal fade" id="agenda-att" tabindex="-1" role="dialog"  aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-xl " role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Agenda</h5>
@@ -297,7 +297,7 @@
                         <div class="row no-gutters">
                             <div class="col-12 p-2">
                                 <div class="">
-                                    <h4 class="color-text"><strong>Day One</strong> Fri, 12 March 2020</h4>
+                                    <h4 class="color-text"><strong>{{ $selected_day->title }}</strong> {{$selected_day->date->isoFormat('LLL')}}</h4>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -307,30 +307,24 @@
                                         <tr>
                                             <th scope="col">From - To</th>
                                             <th scope="col">Session Topic</th>
+                                            <th scope="col">Description</th>
                                             <th scope="col">Speaker</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <th scope="row" STYLE="font-family: tahoma;">09:00 AM - 09:30 PM</th>
-                                            <td>1- Brief Introduction</td>
-                                            <td>Nabil Elsheikh</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" STYLE="font-family: tahoma;">09:00 AM - 09:30 PM</th>
-                                            <td>2- Review of Previous Minutes</td>
-                                            <td>Nabil Elsheikh</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" STYLE="font-family: tahoma;"></th>
-                                            <td>3- Sales Activity</td>
-                                            <td>Nabil Elsheikh</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" STYLE="font-family: tahoma;"></th>
-                                            <td>4-  Pipeline</td>
-                                            <td>Nabil Elsheikh</td>
-                                        </tr>
+                                        @foreach($talks as $talk)
+                                            <tr>
+                                                <th scope="row" STYLE="font-family: tahoma;">{{ $talk->time_from }} - {{ $talk->time_to }}</th>
+                                                <td>{{ $talk->title }}</td>
+                                                <td>{!! $talk->desc !!}</td>
+                                                <td>@foreach($talk->speakers as $speaker)
+                                                        <span>Dr: {{$speaker->name}}</span>
+                                                        @if (!$loop->last)
+                                                            ,
+                                                        @endif
+                                                    @endforeach</td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>

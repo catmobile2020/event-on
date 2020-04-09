@@ -56,7 +56,15 @@ class EventController extends Controller
 
     public function live(Event $event)
     {
-        return view('site.pages.event.live',compact('event'));
+        $speakers =collect([]);
+        $selected_day =$event->days()->where('date',date('Y-m-d'))->first();
+        $talks = $selected_day->talks;
+        foreach ($talks as $talk)
+        {
+            $speakers = $speakers->merge($talk->speakers);
+        }
+        $speakers = $speakers->unique('id');
+        return view('site.pages.event.live',compact('event', 'talks', 'speakers', 'selected_day'));
     }
 
     public function agenda(Event $event,Request $request)
@@ -71,6 +79,8 @@ class EventController extends Controller
         $rows = $first_day->talks;
         return view('site.pages.day.index',compact('event','rows'));
     }
+
+
 
     public function getVote(Talk $talk)
     {
