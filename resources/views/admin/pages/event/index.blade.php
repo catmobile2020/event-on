@@ -47,6 +47,7 @@
 {{--                                    <th>will not attend</th>--}}
                                     <th>Features</th>
                                     <th>Registration Link</th>
+                                    <th>Go Live</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -69,6 +70,9 @@
                                         </td>
                                         <td>
                                             <a href="{{route('site.register',$row->company->token)}}">{{route('site.register',$row->company->token)}}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{route('admin.events.fireEvent',[$row->company->id,$row->id])}}" class="btn btn-info btn-rounded">Go Live</a>
                                         </td>
                                         <td class="size-80">
                                             <div class="dropdown">

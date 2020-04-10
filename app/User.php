@@ -112,12 +112,12 @@ class User extends Authenticatable  implements JWTSubject
 
     public function ownerQuestions()
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany(Question::class)->latest();
     }
 
     public function ownerPolls()
     {
-        return $this->hasMany(Poll::class);
+        return $this->hasMany(Poll::class)->latest();
     }
 
     public function trash()

@@ -34,7 +34,7 @@ class ZoomController extends Controller
 //            $meetings = $zoom->user->find('ibrahimm@cat.com.eg')->meetings()->all();
 //            $users = $zoom->user->all();
 //            $meeting = $zoom->meeting->find('000000000');
-            $meeting = $zoom_user->meetings()->create([
+            $meeting = $zoom_user->webinars()->create([
                 "topic" => $request->name,
                 "agenda" => "Meeting description.",
                 "type" => 2,
@@ -59,7 +59,6 @@ class ZoomController extends Controller
             ]);
         }catch (\Exception $exception)
         {
-            dd($exception);
             return back()->with('message',$exception->getMessage());
         }
         return back()->with('message','Created Successfully');

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Events\VoteEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\PollRequest;
 use App\Http\Requests\Site\UserPollRequest;
+use App\Http\Resources\PollResource;
 use App\Poll;
 use App\User;
 use Illuminate\Http\Request;
@@ -28,7 +30,17 @@ class PollController extends Controller
             {
                 $poll->options()->create(['option'=>$option]);
             }
+            if ($request->ajax())
+            {
+                $view = view('site.pages.poll.vote',compact('poll'))->render();
+                broadcast(new VoteEvent($view,$request->event_id));
+                return PollResource::make($poll);
+            }
             return redirect()->back()->with('message','Done Successfully');
+        }
+        if ($request->ajax())
+        {
+            return ['message'=>'error happen try again !'];
         }
         return redirect()->back()->with('message','error happen try again !');
     }

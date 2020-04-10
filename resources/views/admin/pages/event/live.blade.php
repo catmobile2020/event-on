@@ -9,8 +9,7 @@
 @endsection
 
 @section('css')
-    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.7.4/css/bootstrap.css" />
-    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.7.4/css/react-select.css" />
+
 @endsection
 
 @section('content')
@@ -23,9 +22,9 @@
                 <div class="video-center d-flex justify-content-between">
                     <div class="video-call w-100">
                         <span>Live</span>
-{{--                        <iframe src="" frameborder="0" class="webinar"></iframe>--}}
-                            <div id="zmmtg-root"></div>
-                            <div id="aria-notify-area"></div>
+                        <iframe src="" frameborder="0" class="webinar"></iframe>
+{{--                            <div id="zmmtg-root"></div>--}}
+{{--                            <div id="aria-notify-area"></div>--}}
                         <a class="mini pointer"><i class="fas fa-compress-arrows-alt"></i></a>
                         <div class="footer-video">
                             <ul>
@@ -457,36 +456,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="tab-pane fade  show active" id="choose-vote-s" role="tabpanel" aria-labelledby="choose-vote-s">
-                                <div class="block-content">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Questions</th>
-                                            <th scope="col">Options</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($polls as $poll)
-                                            <tr>
-                                                <th scope="row">{{$loop->iteration}}</th>
-                                                <td>{{$poll->question}}</td>
-                                                <td>
-                                                    @foreach($poll->options as $option)
-                                                        <span class="badge badge-secondary">{{$option->option}}</span>
-                                                    @endforeach
-                                                </td>
-                                                <td>
-                                                    <a href="{{route('site.events.broadcastEvent',[$event->id,1,$poll->id])}}" class="btn btn-primary btn-sm broadcastEventRequest">Broadcast</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -524,60 +494,6 @@
 @endsection
 
 @section('js')
-    <script src="https://source.zoom.us/1.7.4/lib/vendor/react.min.js"></script>
-    <script src="https://source.zoom.us/1.7.4/lib/vendor/react-dom.min.js"></script>
-    <script src="https://source.zoom.us/1.7.4/lib/vendor/redux.min.js"></script>
-    <script src="https://source.zoom.us/1.7.4/lib/vendor/redux-thunk.min.js"></script>
-    <script src="https://source.zoom.us/1.7.4/lib/vendor/jquery.min.js"></script>
-    <script src="https://source.zoom.us/1.7.4/lib/vendor/lodash.min.js"></script>
-
-    <!-- import ZoomMtg -->
-    <script src="https://source.zoom.us/zoom-meeting-1.7.4.min.js"></script>
-    <script>
-        (function(){
-
-            ZoomMtg.preLoadWasm();
-
-            ZoomMtg.prepareJssdk();
-
-            ZoomMtg.init({
-                leaveUrl: '{{route('site.events.show',$event->id)}}',
-                isSupportAV: true,
-                audioPanelAlwaysOpen: true,
-                screenShare: true,
-                isSupportChat: true,
-                success: function () {
-                    var d = new Date();
-                    console.log('time: ',d.getTime());
-                    ZoomMtg.join(
-                        {
-                            meetingNumber: '{{$event->meeting_id}}',
-                            userName: '{{$auth_user->name}}',
-                            signature: '{{$signature}}',
-                            apiKey: '{{$api_key}}',
-                            userEmail: '{{$auth_user->email}}',
-                            passWord: '{{$event->zoom_password}}',
-                            // role: 0,
-                            success: function(res){
-                                $('#nav-tool').hide();
-                                console.log('join meeting success');
-                                console.log(res);
-                            },
-                            error: function(res) {
-                                console.log(res);
-                            }
-                        }
-                    );
-                    console.log('after join');
-                },
-                error: function(res) {
-                    console.log(res);
-                }
-            });
-        })();
-
-
-    </script>
     <style>
 
         .custom-control-inline {
@@ -1400,6 +1316,11 @@
                     console.log(errors);
                 }
             });
+        });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
     </script>
 @endsection

@@ -3,10 +3,19 @@
 namespace App\Http\Controllers\Site;
 
 use App\Event;
+use App\Events\AnswerEvent;
+use App\Events\AskEvent;
+use App\Events\VoteEvent;
 use App\Filters\EventFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Site\QuestionRequest;
 use App\Http\Requests\Site\RateRequest;
+use App\Http\Resources\AskResource;
 use App\Http\Resources\EventResource;
+use App\Http\Resources\PollResource;
+use App\Http\Resources\QuestionResource;
+use App\Poll;
+use App\Question;
 use App\Talk;
 use App\User;
 use Illuminate\Http\Request;
@@ -56,7 +65,40 @@ class EventController extends Controller
 
     public function live(Event $event)
     {
-        return view('site.pages.event.live',compact('event'));
+        $auth_user = auth()->user();
+        $speakers =collect([]);
+        $talks =  $event->talks;
+        foreach ($talks as $talk)
+        {
+            $speakers = $speakers->merge($talk->speakers);
+        }
+        $speakers = $speakers->unique('id');
+        $days =$event->days()->active()->with('talks')->get();
+        $questions = $auth_user->ownerQuestions;
+        $polls = $auth_user->ownerPolls;
+
+        $api_key = env('ZOOM_KEY');
+        $api_sercet = env('ZOOM_SECRET');
+        $role =0;
+        $signature = $this->generate_signature($api_key,$api_sercet,$event->meeting_id,$role);
+
+        return view('site.pages.event.live',compact(
+            'event','speakers','days','auth_user','questions','polls','signature','api_key'
+        ));
+    }
+
+    function generate_signature ( $api_key, $api_sercet, $meeting_number, $role){
+
+        $time = time() * 1000; //time in milliseconds (or close enough)
+
+        $data = base64_encode($api_key . $meeting_number . $time . $role);
+
+        $hash = hash_hmac('sha256', $data, $api_sercet, true);
+
+        $_sig = $api_key . "." . $meeting_number . "." . $time . "." . $role . "." . base64_encode($hash);
+
+        //return signature, url safe base64 encoded
+        return rtrim(strtr(base64_encode($_sig), '+/', '-_'), '=');
     }
 
     public function agenda(Event $event,Request $request)
@@ -86,5 +128,29 @@ class EventController extends Controller
             'user_id'=>auth()->id(),
         ]);
         return redirect()->back()->with('message','voted Successfully');
+    }
+
+    public function askSpeakerQuestion(Event $event,QuestionRequest $request)
+    {
+        $inputs = $request->all();
+        $inputs['user_id'] = auth()->id();
+        $ask = $event->asks()->create($inputs);
+        broadcast(new AskEvent(AskResource::make($ask)));
+        return ['status'=>'success','message'=>'Done Successfully'];
+    }
+
+    public function broadcastEvent(Event $event,$type,$id)
+    {
+        if ($type == 1)
+        {
+            $poll = Poll::find($id);
+            $view = view('site.pages.poll.vote',compact('poll'))->render();
+            broadcast(new VoteEvent($view,$event->id));
+            return PollResource::make($poll);
+        }
+        $question = Question::find($id);
+        $view = view('site.pages.question.answer',compact('question'))->render();
+        broadcast(new AnswerEvent($view,$event->id));
+        return QuestionResource::make($question);
     }
 }

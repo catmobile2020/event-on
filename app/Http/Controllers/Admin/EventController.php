@@ -8,13 +8,15 @@ use App\Event;
 use App\Helpers\UploadImage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\EventRequest;
+use Carbon\Carbon;
+use MacsiDigital\Zoom\Zoom;
 
 class EventController extends Controller
 {
     use UploadImage;
     public function __construct()
     {
-        $this->middleware('auth_type:1')->except('edit','update','myEvents');
+        $this->middleware('auth_type:1')->except('edit','update','myEvents','fireEvent');
     }
 
     public function index(Company $company)
@@ -37,6 +39,30 @@ class EventController extends Controller
         $event->admins()->sync($request->admin_ids);
         if ($request->photo)
             $this->upload($request->photo,$event);
+
+        $start_date =Carbon::parse($request->start_date);
+        $zoom = new Zoom();
+        try
+        {
+            $zoom_password = rand(0000000,9999999);
+            $zoom_user = $zoom->user->find('ibrahimm@cat.com.eg');
+            $meeting = $zoom_user->webinars()->create([
+                "topic" => $request->name,
+                "agenda" => strip_tags($request->description),
+                "type" => 2,
+                "password" => $zoom_password,
+                "duration" => 60*8,
+                "start_time" => $start_date->format('Y-m-d\TH:i:s'),
+            ]);
+            $event->update([
+                'zoom_link'=>$meeting->join_url,
+                'meeting_id'=>$meeting->id,
+                'zoom_password'=>$zoom_password,
+            ]);
+        }catch (\Exception $exception)
+        {
+            return back()->with('message',$exception->getMessage());
+        }
         return redirect()->back()->with('message','Done Successfully');
     }
 
@@ -72,5 +98,44 @@ class EventController extends Controller
         $auth_user = auth()->user();
         $rows = $auth_user->events()->orderBy('start_date')->paginate($this->web_paginate_num);
         return view('admin.pages.event.index',compact('rows'));
+    }
+
+    public function fireEvent(Company $company,Event $event)
+    {
+//        dd(555);
+        $auth_user = auth()->user();
+        $speakers =collect([]);
+        $talks =  $event->talks;
+        foreach ($talks as $talk)
+        {
+            $speakers = $speakers->merge($talk->speakers);
+        }
+        $speakers = $speakers->unique('id');
+        $days =$event->days()->active()->with('talks')->get();
+        $questions = $auth_user->ownerQuestions;
+        $polls = $auth_user->ownerPolls;
+
+        $api_key = env('ZOOM_KEY');
+        $api_sercet = env('ZOOM_SECRET');
+        $role =1;
+        $signature = $this->generate_signature($api_key,$api_sercet,$event->meeting_id,$role);
+
+        return view('admin.pages.event.live',compact(
+            'event','speakers','days','auth_user','questions','polls','signature','api_key'
+        ));
+    }
+
+    function generate_signature ( $api_key, $api_sercet, $meeting_number, $role){
+
+        $time = time() * 1000; //time in milliseconds (or close enough)
+
+        $data = base64_encode($api_key . $meeting_number . $time . $role);
+
+        $hash = hash_hmac('sha256', $data, $api_sercet, true);
+
+        $_sig = $api_key . "." . $meeting_number . "." . $time . "." . $role . "." . base64_encode($hash);
+
+        //return signature, url safe base64 encoded
+        return rtrim(strtr(base64_encode($_sig), '+/', '-_'), '=');
     }
 }

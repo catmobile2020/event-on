@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Events\AnswerEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\AnswerRequest;
 use App\Http\Requests\Site\QuestionRequest;
+use App\Http\Resources\QuestionResource;
 use App\Question;
 use App\User;
-use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
@@ -22,7 +23,17 @@ class QuestionController extends Controller
         $question =$speaker->ownerQuestions()->create($request->all());
         if ($question)
         {
+            if ($request->ajax())
+            {
+                $view = view('site.pages.question.answer',compact('question'))->render();
+                broadcast(new AnswerEvent($view,$request->event_id));
+                return ['status'=>'success','message'=>'Done Successfully'];
+            }
             return redirect()->back()->with('message','Done Successfully');
+        }
+        if ($request->ajax())
+        {
+            return ['message'=>'error happen try again !'];
         }
         return redirect()->back()->with('message','error happen try again !');
     }

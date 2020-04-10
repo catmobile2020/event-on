@@ -24,6 +24,9 @@ class CreateEventsTable extends Migration
             $table->text('address')->nullable();
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
+            $table->string('zoom_link')->nullable();
+            $table->string('meeting_id')->nullable();
+            $table->string('zoom_password')->nullable();
 
             $table->unsignedBigInteger('company_id')->index();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');

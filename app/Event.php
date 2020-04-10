@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    protected $fillable=['name','description','start_date','end_date','city','active','address','lat','lng','company_id'];
+    protected $fillable=['name','description','start_date','end_date','city','active','address','lat','lng','zoom_link','meeting_id','zoom_password','company_id'];
 
     protected $dates=['start_date','end_date'];
 
@@ -39,6 +39,11 @@ class Event extends Model
         return $this->hasMany(Day::class);
     }
 
+    public function asks()
+    {
+        return $this->hasMany(Ask::class);
+    }
+
     public function rate()
     {
         return $this->morphMany(Rate::class, 'rateable');
@@ -52,6 +57,11 @@ class Event extends Model
     public function talks()
     {
         return $this->hasManyThrough(Talk::class,Day::class)->has('speakers')->with('speakers');
+    }
+
+    public function attendees()
+    {
+        return $this->belongsToMany(User::class);
     }
 
     public function scopeFilter($query,EventFilter $filter)

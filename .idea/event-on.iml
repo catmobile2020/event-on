@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" packagePrefix="App\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/benwilkins/laravel-fcm-notification" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nategood/httpful" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/predis/predis" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/slakbal/gotowebinar" />
     </content>
     <orderEntry type="inheritedJdk" />

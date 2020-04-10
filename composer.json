@@ -16,6 +16,7 @@
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
         "macsidigital/laravel-zoom": "^1.0",
+        "predis/predis": "^1.1",
         "rap2hpoutre/laravel-log-viewer": "^1.3",
         "slakbal/gotowebinar": "^6.0",
         "tymon/jwt-auth": "^1.0",
