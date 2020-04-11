@@ -44,7 +44,7 @@
                                     </button>
                                 </li>
                                 <li>
-                                    <button data-toggle="modal" data-target="#feedback-att">
+                                    <button data-toggle="modal" data-target="#feedback-att" disabled="disabled">
                                         Feedback
                                     </button>
                                 </li>
@@ -215,33 +215,21 @@
 
                             </div>
                             <div class="tab-pane fade" id="session" role="tabpanel" aria-labelledby="session-tab">
-                                <div class="block-content">
-                                    <p><strong>Session Name : {{$talks->where('time_from', '<=', date('H:i:s'))->first()->title }}</strong></p>
-                                    <p>
-                                        {!!  $talks->where('time_from', '<=', date('H:i:s'))->first()->desc !!}
-                                    </p>
-                                    <div class="col-12">
-                                        <fieldset class="rating">
-                                            <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-                                            <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                                            <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                                            <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                            <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-                                            <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                            <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-                                            <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                                            <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-                                            <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                                        </fieldset>
-                                    </div>
 
-                                    <div class="col-12 p-0 m-0">
-                                        <div class="form-group">
-                                            <textarea class="form-control" rows="3" placeholder="Your Feedback"></textarea>
+                                @foreach($talks as $talk)
+                                    <div class="d-flex justify-content-start" style=" background-color: #f4f6f8; margin-top: 20px">
+                                        <div class="speaker-data">
+                                            <div class="block-name d-flex justify-content-between">
+                                                <span class="color-text pt-2 textsession"> {{ $talk->title }}</span>
+                                                <span class="descsession" style="display: none;"> {{ $talk->desc }}</span>
+                                                <a href="#" id="{{ $talk->id }}" class="primary-button-speaker ssession" data-toggle="modal" data-target="#rate-session">Rate Session</a>
+                                            </div>
+                                            <div class="block-data">
+                                                <p> {{ date( "h:i a", strtotime($talk->time_from)) }}- {{ date( "h:i a", strtotime($talk->time_to))}} </p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <input type="submit" VALUE="Submit" class="btn btn-submit">
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -289,6 +277,51 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="rate-session" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Rate Session</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-12">
+                            <div class="block-content p-4">
+                                <p><strong id="sessionName">Session Name : test</strong></p>
+
+                                <p id="sessionDesc"></p>
+
+                                <div class="col-12">
+                                    <fieldset class="rating">
+                                        <input type="radio" id="sessionstar5" name="sessionrating" value="5" /><label class = "full" for="sessionstar5"></label>
+                                        <input type="radio" id="sessionstar4half" name="sessionrating" value="4.5" /><label class="half" for="sessionstar4half" title="Pretty good - 4.5 stars"></label>
+                                        <input type="radio" id="sessionstar4" name="sessionrating" value="4" /><label class = "full" for="sessionstar4" title="Pretty good - 4 stars"></label>
+                                        <input type="radio" id="sessionstar3half" name="sessionrating" value="3.5" /><label class="half" for="sessionstar3half" title="Meh - 3.5 stars"></label>
+                                        <input type="radio" id="sessionstar3" name="sessionrating" value="3" /><label class = "full" for="sessionstar3" title="Meh - 3 stars"></label>
+                                        <input type="radio" id="sessionstar2half" name="sessionrating" value="2.5" /><label class="half" for="sessionstar2half" title="Kinda bad - 2.5 stars"></label>
+                                        <input type="radio" id="sessionstar2" name="sessionrating" value="2" /><label class = "full" for="sessionstar2" title="Kinda bad - 2 stars"></label>
+                                        <input type="radio" id="sessionstar1half" name="sessionrating" value="1.5" /><label class="half" for="sessionstar1half" title="Meh - 1.5 stars"></label>
+                                        <input type="radio" id="sessionstar1" name="sessionrating" value="1" /><label class = "full" for="sessionstar1" title="Sucks big time - 1 star"></label>
+                                        <input type="radio" id="sessionstarhalf" name="sessionrating" value="half" /><label class="half" for="sessionstarhalf" title="Sucks big time - 0.5 stars"></label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-12 p-0 m-0">
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="sessionratingfeedback" rows="3" placeholder="Your Feedback"></textarea>
+                                    </div>
+                                </div>
+                                <input type="submit" id="submitsessionrate" VALUE="Submit" class="btn btn-submit">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="modal fade" id="agenda-att" tabindex="-1" role="dialog"  aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl " role="document">
                 <div class="modal-content">
@@ -1214,6 +1247,26 @@
                     $('#rate-speaker').modal('hide');
                     $('input[name=speakerrating]:checked').prop('checked',false);
                     $('#speakerratingfeedback').val('');
+
+                })
+
+            })
+        })
+        $('.ssession').on('click', function () {
+            var session_id = $(this).attr('id'),
+                session_name = $(this).parent().find('.textsession')[0].innerText,
+                session_desc = $(this).parent().find('.descsession')[0].innerText;
+            $('#sessionName').text('Session Name : ' + session_name);
+            $('#sessionDesc').html(session_desc);
+
+            $('#submitsessionrate').on('click', function () {
+                var session_rating = $('input[name=sessionrating]:checked').val(),
+                    sfeedback = $('#sessionratingfeedback').val();
+
+                $.post('/talks/'+ session_id +'/vote ', {"_token": "{{ csrf_token() }}",rate:session_rating, comment: sfeedback}, function (data) {
+                    $('#rate-speaker').modal('hide');
+                    $('input[name=sessionrating]:checked').prop('checked',false);
+                    $('#sessionratingfeedback').val('');
 
                 })
 
