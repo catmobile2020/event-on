@@ -353,6 +353,10 @@
                             <div class="col-12 mb-3">
                                 <p><strong>The sessions were informative and beneficial</strong></p>
                                 <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="stronglyagree" value="5" name="sessions" class="custom-control-input">
+                                    <label class="custom-control-label" for="stronglyagree">Strongly agree</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="agree" value="4" name="sessions" class="custom-control-input">
                                     <label class="custom-control-label"  for="agree">Agree</label>
                                 </div>
@@ -373,6 +377,10 @@
                             <div class="col-12 mb-3">
                                 <p><strong>The inter activity was stimulating</strong></p>
                                 <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="stronglyagree" value="5" name="activity" class="custom-control-input">
+                                    <label class="custom-control-label" for="stronglyagree">Strongly agree</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="agree2" value="4" name="activity" class="custom-control-input">
                                     <label class="custom-control-label" for="agree2">Agree</label>
                                 </div>
@@ -392,6 +400,10 @@
                             <div class="col-12 mb-3">
                                 <p><strong>The speaker/material was interesting</strong></p>
                                 <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="stronglyagree" name="interesting" value="5" class="custom-control-input">
+                                    <label class="custom-control-label" for="stronglyagree">Strongly agree</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="agree3" value="4" name="interesting" class="custom-control-input">
                                     <label class="custom-control-label" for="agree3">Agree</label>
                                 </div>
@@ -410,6 +422,10 @@
                             </div>
                             <div class="col-12 mb-3">
                                 <p><strong>The overall experience met my expectations</strong></p>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="stronglyagree" name="experience" value="5" class="custom-control-input">
+                                    <label class="custom-control-label" for="stronglyagree">Strongly agree</label>
+                                </div>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="agree4" value="4" name="experience" class="custom-control-input">
                                     <label class="custom-control-label" for="agree4">Agree</label>
