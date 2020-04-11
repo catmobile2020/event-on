@@ -312,16 +312,14 @@
                                         <tr>
                                             <th scope="col">From - To</th>
                                             <th scope="col">Session Topic</th>
-                                            <th scope="col">Description</th>
                                             <th scope="col">Speaker</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($talks as $talk)
                                             <tr>
-                                                <th scope="row" STYLE="font-family: tahoma;">{{ $talk->time_from }} - {{ $talk->time_to }}</th>
+                                                <th scope="row" STYLE="font-family: tahoma;"> {{ date( "h:i a", strtotime($talk->time_from)) }}- {{ date( "h:i a", strtotime($talk->time_to))}}</th>
                                                 <td>{{ $talk->title }}</td>
-                                                <td>{!! $talk->desc !!}</td>
                                                 <td>@foreach($talk->speakers as $speaker)
                                                         <span>Dr: {{$speaker->name}}</span>
                                                         @if (!$loop->last)
@@ -340,7 +338,7 @@
             </div>
         </div>
         <div class="modal fade" id="feedback-att" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Feedback</h5>
