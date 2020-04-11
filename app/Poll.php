@@ -20,6 +20,6 @@ class Poll extends Model
 
     public function userPolls()
     {
-        return $this->hasMany(UserPolls::class);
+        return $this->hasMany(UserPolls::class,'poll_id');
     }
 }

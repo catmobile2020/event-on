@@ -40,7 +40,7 @@ class EventController extends Controller
         if ($request->photo)
             $this->upload($request->photo,$event);
 
-        $start_date =Carbon::parse($request->start_date);
+        $start_date =Carbon::parse($request->end_date);
         $zoom = new Zoom();
         try
         {
@@ -102,27 +102,13 @@ class EventController extends Controller
 
     public function fireEvent(Company $company,Event $event)
     {
-//        dd(555);
         $auth_user = auth()->user();
-        $speakers =collect([]);
-        $talks =  $event->talks;
-        foreach ($talks as $talk)
-        {
-            $speakers = $speakers->merge($talk->speakers);
-        }
-        $speakers = $speakers->unique('id');
-        $days =$event->days()->active()->with('talks')->get();
-        $questions = $auth_user->ownerQuestions;
-        $polls = $auth_user->ownerPolls;
-
         $api_key = env('ZOOM_KEY');
         $api_sercet = env('ZOOM_SECRET');
         $role =1;
         $signature = $this->generate_signature($api_key,$api_sercet,$event->meeting_id,$role);
 
-        return view('admin.pages.event.live',compact(
-            'event','speakers','days','auth_user','questions','polls','signature','api_key'
-        ));
+        return view('site.pages.event.default',compact('event','auth_user','signature','api_key','role'));
     }
 
     function generate_signature ( $api_key, $api_sercet, $meeting_number, $role){

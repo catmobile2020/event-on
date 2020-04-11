@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login | Event On</title>
+    <title>Update Password | Event On</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -37,30 +37,28 @@
                                     <div class="logo text-center">
                                         <img src="{{asset('assets/site/images/logo.png')}}" class="img-fluid" alt="">
                                     </div>
-                                    <p class="text-muted mb-5 text-center">Welcome back! Please login to your account.</p>
+                                    <p class="text-muted mb-5 text-center">Change Password</p>
                                     <div class="form-group">
-                                        <input type="text" name="email" id="email" placeholder="Username / Email">
-                                    </div>
-                                    <div class="form--group">
-                                        <input type="password" name="password" id="password" placeholder="Password">
+                                        <input type="password" name="password" autocomplete placeholder="new password">
                                     </div>
                                     <div class="form-group">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" name="remember_me" class="custom-control-input" id="customCheck1">
-                                                <label class="custom-control-label" for="customCheck1">Remember Me</label>
-                                            </div>
-                                            <a href="{{route('site.getResetPassword')}}" class="reset_password">Reset Password</a>
-                                        </div>
+                                        <input type="password" name="password_confirmation" autocomplete placeholder="Re-New Password">
                                     </div>
                                     <div class="form--group mt-3">
                                         <div class="row">
                                             <div class="col-12">
-                                                <button type="submit" class="btn primary-button mt-3 w-100 p-3">Log In</button>
+                                                <button type="submit" class="btn primary-button mt-3 w-100 p-3">Change Password</button>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
+                                <div class="form--group mt-3">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <a href="{{route('site.login')}}" class="btn primary-button mt-3 w-100 p-3">Back To Login</a>
+                                        </div>
+                                    </div>
+                                </div>
                                 <br>
                                 <br>
                                 <hr>

@@ -26,7 +26,7 @@ class UpdateProfileRequest extends FormRequest
         $data = [
             'name' => 'required|max:191',
         ];
-        $data['email']='required|email|unique:users,email,'.$this->user('web')->id;
+        $data['email']='required|email|unique:admins,email,'.$this->user('web')->id;
         if ($this->has('password') and $this->get('password') !== null)
         {
             $data['current_password']='required|min:6';

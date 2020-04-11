@@ -38,6 +38,7 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Event Name</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Company Name</th>
@@ -55,6 +56,7 @@
                                 @foreach($rows as $row)
                                     <tr class="gradeX">
                                         <td>{{$loop->iteration}}</td>
+                                        <td>{{$row->name}}</td>
                                         <td>{{$row->start_date}}</td>
                                         <td>{{$row->end_date}}</td>
                                         <td>{{$row->company->name}}</td>
@@ -72,7 +74,7 @@
                                             <a href="{{route('site.register',$row->company->token)}}">{{route('site.register',$row->company->token)}}</a>
                                         </td>
                                         <td>
-                                            <a href="{{route('admin.events.fireEvent',[$row->company->id,$row->id])}}" class="btn btn-info btn-rounded">Go Live</a>
+                                            <a href="{{route('admin.events.fireEvent',[$row->company->id,$row->id])}}" class="btn btn-info btn-rounded" target="_blank">Go Live</a>
                                         </td>
                                         <td class="size-80">
                                             <div class="dropdown">

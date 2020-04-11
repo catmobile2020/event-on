@@ -29521,16 +29521,16 @@ var auth_id = document.head.querySelector('meta[name="auth_id"]').content;
 var event_id = document.head.querySelector('meta[name="event_id"]').content;
 window.auth_id = auth_id;
 console.log('event_id = ', event_id);
-window.Echo.channel('event_on_database_ask-channel.' + auth_id).listen('.AskEvent', function (e) {
+window.Echo.channel('ask-channel.' + auth_id).listen('.AskEvent', function (e) {
   console.log(e);
 });
-window.Echo.channel('event_on_database_vote-channel.' + event_id).listen('.VoteEvent', function (e) {
+window.Echo.channel('vote-channel.' + event_id).listen('.VoteEvent', function (e) {
   if (e.owner_id != auth_id) {
     $('#insertVoteModalData').html(e.view);
     $('#voteModalResponse').modal('show');
   }
 });
-window.Echo.channel('event_on_database_answer-channel.' + event_id).listen('.AnswerEvent', function (e) {
+window.Echo.channel('answer-channel.' + event_id).listen('.AnswerEvent', function (e) {
   if (e.owner_id != auth_id) {
     $('#insertAnswerModalData').html(e.view);
     $('#answerModalResponse').modal('show');

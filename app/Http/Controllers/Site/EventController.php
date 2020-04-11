@@ -11,13 +11,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\QuestionRequest;
 use App\Http\Requests\Site\RateRequest;
 use App\Http\Resources\AskResource;
-use App\Http\Resources\EventResource;
 use App\Http\Resources\PollResource;
 use App\Http\Resources\QuestionResource;
 use App\Poll;
 use App\Question;
 use App\Talk;
-use App\User;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -61,6 +59,17 @@ class EventController extends Controller
         $speakers = $speakers->unique('id');
         $days =$event->days()->active()->with('talks')->get();
         return view('site.pages.event.show',compact('event','speakers','days'));
+    }
+
+    public function defaultLive(Event $event)
+    {
+        $auth_user = auth()->user();
+        $api_key = env('ZOOM_KEY');
+        $api_sercet = env('ZOOM_SECRET');
+//        $role = ($auth_user->id == $register->user_id) ? 1 : 0;
+        $role =0;
+        $signature = $this->generate_signature($api_key,$api_sercet,$event->meeting_id,$role);
+        return view('site.pages.event.default',compact('event','auth_user','signature','api_key','role'));
     }
 
     public function live(Event $event)
@@ -139,12 +148,19 @@ class EventController extends Controller
         return ['status'=>'success','message'=>'Done Successfully'];
     }
 
-    public function broadcastEvent(Event $event,$type,$id)
+    public function broadcastEvent(Event $event,$type,$id,Request $request)
     {
         if ($type == 1)
         {
             $poll = Poll::find($id);
-            $view = view('site.pages.poll.vote',compact('poll'))->render();
+            if ($request->cast_type == 1)
+            {
+                $view = view('site.pages.poll.chart',compact('poll'))->render();
+            }else
+            {
+                $view = view('site.pages.poll.vote',compact('poll'))->render();
+            }
+
             broadcast(new VoteEvent($view,$event->id));
             return PollResource::make($poll);
         }

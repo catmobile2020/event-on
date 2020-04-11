@@ -12,7 +12,7 @@
                             <div class="block-data w-100">
                                 <div class="block-name pl-3 pr-3  d-flex justify-content-between">
                                     <h4 class="pt-4">Account</h4>
-                                    <a href="" class="mt-4 p-2 primary-button">Edit My Account</a>
+                                    <a href="{{route('site.editAccount')}}" class="mt-4 p-2 primary-button">Edit My Account</a>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">

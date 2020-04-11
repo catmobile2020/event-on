@@ -8,10 +8,6 @@
 {{$event->name}}
 @endsection
 
-@section('css')
-    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.7.4/css/bootstrap.css" />
-    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.7.4/css/react-select.css" />
-@endsection
 
 @section('content')
     <main class="content__main" style="height: 100%;">
@@ -23,9 +19,7 @@
                 <div class="video-center d-flex justify-content-between">
                     <div class="video-call w-100">
                         <span>Live</span>
-{{--                        <iframe src="" frameborder="0" class="webinar"></iframe>--}}
-                            <div id="zmmtg-root"></div>
-                            <div id="aria-notify-area"></div>
+                        <iframe src="{{route('site.events.defaultLive',$event->id)}}" frameborder="0" class="webinar"></iframe>
                         <a class="mini pointer"><i class="fas fa-compress-arrows-alt"></i></a>
                         <div class="footer-video">
                             <ul>
@@ -479,7 +473,7 @@
                                                     @endforeach
                                                 </td>
                                                 <td>
-                                                    <a href="{{route('site.events.broadcastEvent',[$event->id,1,$poll->id])}}" class="btn btn-primary btn-sm broadcastEventRequest">Broadcast</a>
+                                                    <a href="{{route('site.events.broadcastEvent',[$event->id,1,$poll->id])}}" class="btn btn-primary btn-sm broadcastEventRequest" data-type="0">Broadcast</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -524,60 +518,6 @@
 @endsection
 
 @section('js')
-    <script src="https://source.zoom.us/1.7.4/lib/vendor/react.min.js"></script>
-    <script src="https://source.zoom.us/1.7.4/lib/vendor/react-dom.min.js"></script>
-    <script src="https://source.zoom.us/1.7.4/lib/vendor/redux.min.js"></script>
-    <script src="https://source.zoom.us/1.7.4/lib/vendor/redux-thunk.min.js"></script>
-    <script src="https://source.zoom.us/1.7.4/lib/vendor/jquery.min.js"></script>
-    <script src="https://source.zoom.us/1.7.4/lib/vendor/lodash.min.js"></script>
-
-    <!-- import ZoomMtg -->
-    <script src="https://source.zoom.us/zoom-meeting-1.7.4.min.js"></script>
-    <script>
-        (function(){
-
-            ZoomMtg.preLoadWasm();
-
-            ZoomMtg.prepareJssdk();
-
-            ZoomMtg.init({
-                leaveUrl: '{{route('site.events.show',$event->id)}}',
-                isSupportAV: true,
-                audioPanelAlwaysOpen: true,
-                screenShare: true,
-                isSupportChat: true,
-                success: function () {
-                    var d = new Date();
-                    console.log('time: ',d.getTime());
-                    ZoomMtg.join(
-                        {
-                            meetingNumber: '{{$event->meeting_id}}',
-                            userName: '{{$auth_user->name}}',
-                            signature: '{{$signature}}',
-                            apiKey: '{{$api_key}}',
-                            userEmail: '{{$auth_user->email}}',
-                            passWord: '{{$event->zoom_password}}',
-                            // role: 0,
-                            success: function(res){
-                                $('#nav-tool').hide();
-                                console.log('join meeting success');
-                                console.log(res);
-                            },
-                            error: function(res) {
-                                console.log(res);
-                            }
-                        }
-                    );
-                    console.log('after join');
-                },
-                error: function(res) {
-                    console.log(res);
-                }
-            });
-        })();
-
-
-    </script>
     <style>
 
         .custom-control-inline {
@@ -1391,8 +1331,20 @@
         $(document).on('click','.broadcastEventRequest',function (e) {
             e.preventDefault();
             let self = $(this);
+            let cast_type = self.attr('data-type');
+            if (cast_type == 0)
+            {
+                $(self).attr('data-type',1);
+                $(self).html('Finish');
+            }else
+            {
+                $(self).attr('data-type',0);
+                $(self).html('Broadcast');
+            }
+            console.log('af ',cast_type);
             $.ajax({
                 url:self.attr('href'),
+                data:{cast_type:cast_type},
                 success:function (result) {
                     console.log(result);
                 },

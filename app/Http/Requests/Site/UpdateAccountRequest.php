@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Site;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ResetPasswordRequest extends FormRequest
+class UpdateAccountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +23,16 @@ class ResetPasswordRequest extends FormRequest
      */
     public function rules()
     {
+        if ($this->routeIs('site.updateAccount'))
+        {
+            return [
+                'name'=>'required',
+                'email'=>'required|email|unique:users,email,'.$this->user()->id,
+            ];
+        }
         return [
-            'email' => 'required|email',
+            'current_password'=>'required',
+            'password'=>'required|confirmed',
         ];
     }
-
 }

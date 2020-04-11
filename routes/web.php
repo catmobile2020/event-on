@@ -87,11 +87,6 @@ Route::group(['prefix'=>'/admin','namespace'=>'Admin','as'=>'admin.'],function (
     });
 });
 
-
-Route::get('/change-password/{token}','ChangePasswordController@changePassword')->name('change-password');
-Route::post('/change-password/{token}','ChangePasswordController@updatePassword');
-
-
 Route::group(['namespace'=>'Site','as'=>'site.'],function (){
 
     Route::get('/privacy','GeneralController@privacy')->name('privacy');
@@ -103,16 +98,29 @@ Route::group(['namespace'=>'Site','as'=>'site.'],function (){
         Route::get('/sign-up/{token}','AuthController@getRegister')->name('register');
         Route::post('/sign-up/{token}','AuthController@postRegister');
         Route::get('logout','AuthController@logout')->name('logout');
+
+        Route::get('/reset-password','ChangePasswordController@getResetPassword')->name('getResetPassword');
+        Route::post('/reset-password','ChangePasswordController@postResetPassword');
+
+        Route::get('/change-password/{token}','ChangePasswordController@changePassword')->name('change-password');
+        Route::post('/change-password/{token}','ChangePasswordController@updatePassword')->name('update-password');
     });
 
     Route::group(['middleware'=>['auth:web']],function (){
         Route::get('/account','AccountController@me')->name('profile');
+        Route::get('/edit-account','AccountController@editAccount')->name('editAccount');
+        Route::post('/edit-account','AccountController@updateAccount')->name('updateAccount');
+
+        Route::get('/edit-account-password','AccountController@editAccountPassword')->name('editAccountPassword');
+        Route::post('/edit-account-password','AccountController@updateAccountPassword')->name('updateAccountPassword');
+
         Route::get('/home','HomeController@index')->name('home');
         Route::get('/faqs','HomeController@faqs')->name('faqs');
         Route::get('/about','GeneralController@about')->name('about');
         Route::get('/schedule','EventController@schedule')->name('events.schedule');
         Route::get('/events','EventController@events')->name('events.index');
         Route::get('/events/{event}','EventController@show')->name('events.show');
+        Route::get('/events/{event}/default-live','EventController@defaultLive')->name('events.defaultLive');
         Route::get('/events/{event}/live','EventController@live')->name('events.live');
         Route::get('/register-to-event/{event}','EventController@registerToEvent')->name('events.registerToEvent');
 
