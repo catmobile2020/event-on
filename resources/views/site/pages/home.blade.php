@@ -49,7 +49,7 @@
                                     <p>{{$event->name}}
                                         time remaining:{{$event->remaining_time}}</p>
 
-                                    <a href="{{route('site.events.show',$event->id)}}" class="btn primary-button mt-3 w-100 p-3">
+                                    <a href="{{route('site.events.live',$event->id)}}" class="btn primary-button mt-3 w-100 p-3">
                                         <strong>Show Now</strong>
                                     </a>
                                 </div>

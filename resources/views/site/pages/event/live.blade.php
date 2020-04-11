@@ -68,6 +68,11 @@
                                     </button>
                                 </li>
                                 <li>
+                                    <button data-toggle="modal" data-target="#feedback-att" disabled="disabled">
+                                        Feedback
+                                    </button>
+                                </li>
+                                <li>
                                     <button data-toggle="modal" class="fullscreen">
                                         Full Screen
                                     </button>
@@ -161,58 +166,50 @@
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="speaker" role="tabpanel" aria-labelledby="speaker-tab">
-                                <div class="d-flex justify-content-start" style=" background-color: #f4f6f8; margin-top: 20px">
-                                    <div class="session-data-speaker">
-                                        <div class="date">
-                                            <img src="https://profiles.onshape.com/62ed0e33daab89201831c978581fce85e765efb88b09d62d88d1bf278480a499.png" alt="">
+
+                                    @foreach($speakers as $speaker)
+                                    <div class="d-flex justify-content-start" style=" background-color: #f4f6f8; margin-top: 20px">
+                                        <div class="session-data-speaker">
+                                            <div class="date">
+                                                <img src="{{$speaker->photo}}" alt="{{$speaker->name}}">
+                                            </div>
+                                        </div>
+                                        <div class="speaker-data">
+                                            <div class="block-name d-flex justify-content-between">
+                                                <span class="color-text pt-2 texts">DR {{ $speaker->name }}</span>
+                                                <a href="#" id="{{ $speaker->id }}" class="primary-button-speaker speker" data-toggle="modal" data-target="#rate-speaker">Rate Speaker</a>
+                                            </div>
+                                            <div class="block-data">
+                                                <p>{{$speaker->specialty}}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="speaker-data">
-                                        <div class="block-name d-flex justify-content-between">
-                                            <span class="color-text pt-2">Nabil Elsheikh</span>
-                                            <a href="event.html" class="primary-button-speaker" data-toggle="modal" data-target="#rate-speaker">Rate Speaker</a>
-                                        </div>
-                                        <div class="block-data">
-                                            <p>It is a long established fact that a
-                                                reader will  </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                    @endforeach
+
                             </div>
                             <div class="tab-pane fade" id="session" role="tabpanel" aria-labelledby="session-tab">
-                                <div class="block-content">
-                                    <p><strong>Session Name : </strong></p>
-                                    <p>
-                                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
-                                    </p>
-                                    <div class="col-12">
-                                        <fieldset class="rating">
-                                            <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-                                            <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                                            <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                                            <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                            <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-                                            <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                            <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-                                            <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                                            <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-                                            <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                                        </fieldset>
-                                    </div>
 
-                                    <div class="col-12 p-0 m-0">
-                                        <div class="form-group">
-                                            <textarea class="form-control" rows="3" placeholder="Your Feedback"></textarea>
+                                @foreach($talks as $talk)
+                                    <div class="d-flex justify-content-start" style=" background-color: #f4f6f8; margin-top: 20px">
+                                        <div class="speaker-data">
+                                            <div class="block-name d-flex justify-content-between">
+                                                <span class="color-text pt-2 textsession"> {{ $talk->title }}</span>
+                                                <span class="descsession" style="display: none;"> {{ $talk->desc }}</span>
+                                                <a href="#" id="{{ $talk->id }}" class="primary-button-speaker ssession" data-toggle="modal" data-target="#rate-session">Rate Session</a>
+                                            </div>
+                                            <div class="block-data">
+                                                <p> {{ date( "h:i a", strtotime($talk->time_from)) }}- {{ date( "h:i a", strtotime($talk->time_to))}} </p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <input type="submit" VALUE="Submit" class="btn btn-submit">
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="modal fade" id="rate-speaker" tabindex="-1" role="dialog"  aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -225,35 +222,81 @@
                     <div class="modal-body">
                         <div class="col-12">
                             <div class="block-content p-4">
-                                <p><strong>Speaker Name : Nabil Elsheikh</strong></p>
+                                <p><strong id="speakerName">Speaker Name : Nabil Elsheikh</strong></p>
+
                                 <div class="col-12">
                                     <fieldset class="rating">
-                                        <input type="radio" id="speakerstar5" name="rating" value="5" /><label class = "full" for="speakerstar5"></label>
-                                        <input type="radio" id="speakerstar4half" name="rating" value="4.5" /><label class="half" for="speakerstar4half" title="Pretty good - 4.5 stars"></label>
-                                        <input type="radio" id="speakerstar4" name="rating" value="4" /><label class = "full" for="speakerstar4" title="Pretty good - 4 stars"></label>
-                                        <input type="radio" id="speakerstar3half" name="rating" value="3.5" /><label class="half" for="speakerstar3half" title="Meh - 3.5 stars"></label>
-                                        <input type="radio" id="speakerstar3" name="rating" value="3" /><label class = "full" for="speakerstar3" title="Meh - 3 stars"></label>
-                                        <input type="radio" id="speakerstar2half" name="rating" value="2.5" /><label class="half" for="speakerstar2half" title="Kinda bad - 2.5 stars"></label>
-                                        <input type="radio" id="speakerstar2" name="rating" value="2" /><label class = "full" for="speakerstar2" title="Kinda bad - 2 stars"></label>
-                                        <input type="radio" id="speakerstar1half" name="rating" value="1.5" /><label class="half" for="speakerstar1half" title="Meh - 1.5 stars"></label>
-                                        <input type="radio" id="speakerstar1" name="rating" value="1" /><label class = "full" for="speakerstar1" title="Sucks big time - 1 star"></label>
-                                        <input type="radio" id="speakerstarhalf" name="rating" value="half" /><label class="half" for="speakerstarhalf" title="Sucks big time - 0.5 stars"></label>
+                                        <input type="radio" id="speakerstar5" name="speakerrating" value="5" /><label class = "full" for="speakerstar5"></label>
+                                        <input type="radio" id="speakerstar4half" name="speakerrating" value="4.5" /><label class="half" for="speakerstar4half" title="Pretty good - 4.5 stars"></label>
+                                        <input type="radio" id="speakerstar4" name="speakerrating" value="4" /><label class = "full" for="speakerstar4" title="Pretty good - 4 stars"></label>
+                                        <input type="radio" id="speakerstar3half" name="speakerrating" value="3.5" /><label class="half" for="speakerstar3half" title="Meh - 3.5 stars"></label>
+                                        <input type="radio" id="speakerstar3" name="speakerrating" value="3" /><label class = "full" for="speakerstar3" title="Meh - 3 stars"></label>
+                                        <input type="radio" id="speakerstar2half" name="speakerrating" value="2.5" /><label class="half" for="speakerstar2half" title="Kinda bad - 2.5 stars"></label>
+                                        <input type="radio" id="speakerstar2" name="speakerrating" value="2" /><label class = "full" for="speakerstar2" title="Kinda bad - 2 stars"></label>
+                                        <input type="radio" id="speakerstar1half" name="speakerrating" value="1.5" /><label class="half" for="speakerstar1half" title="Meh - 1.5 stars"></label>
+                                        <input type="radio" id="speakerstar1" name="speakerrating" value="1" /><label class = "full" for="speakerstar1" title="Sucks big time - 1 star"></label>
+                                        <input type="radio" id="speakerstarhalf" name="speakerrating" value="half" /><label class="half" for="speakerstarhalf" title="Sucks big time - 0.5 stars"></label>
                                     </fieldset>
                                 </div>
                                 <div class="col-12 p-0 m-0">
                                     <div class="form-group">
-                                        <textarea class="form-control" rows="3" placeholder="Your Feedback"></textarea>
+                                        <textarea class="form-control" id="speakerratingfeedback" rows="3" placeholder="Your Feedback"></textarea>
                                     </div>
                                 </div>
-                                <input type="submit" VALUE="Submit" class="btn btn-submit">
+                                <input type="submit" id="submitspeakerrate" VALUE="Submit" class="btn btn-submit">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="agenda-att" tabindex="-1" role="dialog"  aria-hidden="true">
+
+        <div class="modal fade" id="rate-session" tabindex="-1" role="dialog"  aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Rate Session</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-12">
+                            <div class="block-content p-4">
+                                <p><strong id="sessionName">Session Name : test</strong></p>
+
+                                <p id="sessionDesc"></p>
+
+                                <div class="col-12">
+                                    <fieldset class="rating">
+                                        <input type="radio" id="sessionstar5" name="sessionrating" value="5" /><label class = "full" for="sessionstar5"></label>
+                                        <input type="radio" id="sessionstar4half" name="sessionrating" value="4.5" /><label class="half" for="sessionstar4half" title="Pretty good - 4.5 stars"></label>
+                                        <input type="radio" id="sessionstar4" name="sessionrating" value="4" /><label class = "full" for="sessionstar4" title="Pretty good - 4 stars"></label>
+                                        <input type="radio" id="sessionstar3half" name="sessionrating" value="3.5" /><label class="half" for="sessionstar3half" title="Meh - 3.5 stars"></label>
+                                        <input type="radio" id="sessionstar3" name="sessionrating" value="3" /><label class = "full" for="sessionstar3" title="Meh - 3 stars"></label>
+                                        <input type="radio" id="sessionstar2half" name="sessionrating" value="2.5" /><label class="half" for="sessionstar2half" title="Kinda bad - 2.5 stars"></label>
+                                        <input type="radio" id="sessionstar2" name="sessionrating" value="2" /><label class = "full" for="sessionstar2" title="Kinda bad - 2 stars"></label>
+                                        <input type="radio" id="sessionstar1half" name="sessionrating" value="1.5" /><label class="half" for="sessionstar1half" title="Meh - 1.5 stars"></label>
+                                        <input type="radio" id="sessionstar1" name="sessionrating" value="1" /><label class = "full" for="sessionstar1" title="Sucks big time - 1 star"></label>
+                                        <input type="radio" id="sessionstarhalf" name="sessionrating" value="half" /><label class="half" for="sessionstarhalf" title="Sucks big time - 0.5 stars"></label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-12 p-0 m-0">
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="sessionratingfeedback" rows="3" placeholder="Your Feedback"></textarea>
+                                    </div>
+                                </div>
+                                <input type="submit" id="submitsessionrate" VALUE="Submit" class="btn btn-submit">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="agenda-att" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl " role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Agenda</h5>
@@ -265,7 +308,7 @@
                         <div class="row no-gutters">
                             <div class="col-12 p-2">
                                 <div class="">
-                                    <h4 class="color-text"><strong>Day One</strong> Fri, 12 March 2020</h4>
+                                    <h4 class="color-text"><strong>{{ $selected_day->title }}</strong> {{$selected_day->date->isoFormat('LLL')}}</h4>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -279,26 +322,18 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <th scope="row" STYLE="font-family: tahoma;">09:00 AM - 09:30 PM</th>
-                                            <td>1- Brief Introduction</td>
-                                            <td>Nabil Elsheikh</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" STYLE="font-family: tahoma;">09:00 AM - 09:30 PM</th>
-                                            <td>2- Review of Previous Minutes</td>
-                                            <td>Nabil Elsheikh</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" STYLE="font-family: tahoma;"></th>
-                                            <td>3- Sales Activity</td>
-                                            <td>Nabil Elsheikh</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" STYLE="font-family: tahoma;"></th>
-                                            <td>4-  Pipeline</td>
-                                            <td>Nabil Elsheikh</td>
-                                        </tr>
+                                        @foreach($talks as $talk)
+                                            <tr>
+                                                <th scope="row" STYLE="font-family: tahoma;"> {{ date( "h:i a", strtotime($talk->time_from)) }}- {{ date( "h:i a", strtotime($talk->time_to))}}</th>
+                                                <td>{{ $talk->title }}</td>
+                                                <td>@foreach($talk->speakers as $speaker)
+                                                        <span>Dr: {{$speaker->name}}</span>
+                                                        @if (!$loop->last)
+                                                            ,
+                                                        @endif
+                                                    @endforeach</td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -309,7 +344,7 @@
             </div>
         </div>
         <div class="modal fade" id="feedback-att" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Feedback</h5>
@@ -322,19 +357,23 @@
                             <div class="col-12 mb-3">
                                 <p><strong>The sessions were informative and beneficial</strong></p>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="agree" name="sessions" class="custom-control-input">
-                                    <label class="custom-control-label" for="agree">Agree</label>
+                                    <input type="radio" id="stronglyagree" value="5" name="sessions" class="custom-control-input">
+                                    <label class="custom-control-label" for="stronglyagree">Strongly agree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="notsure" name="sessions" class="custom-control-input">
+                                    <input type="radio" id="agree" value="4" name="sessions" class="custom-control-input">
+                                    <label class="custom-control-label"  for="agree">Agree</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="notsure" value="3"  name="sessions" class="custom-control-input">
                                     <label class="custom-control-label" for="notsure">Not sure</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="disagree" name="sessions" class="custom-control-input">
+                                    <input type="radio" id="disagree" value="2" name="sessions" class="custom-control-input">
                                     <label class="custom-control-label" for="disagree">Disagree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="Strongly" name="sessions" class="custom-control-input">
+                                    <input type="radio" id="Strongly" value="1" name="sessions" class="custom-control-input">
                                     <label class="custom-control-label" for="Strongly">Strongly disagree</label>
                                 </div>
 
@@ -342,57 +381,69 @@
                             <div class="col-12 mb-3">
                                 <p><strong>The inter activity was stimulating</strong></p>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="agree2" name="activity" class="custom-control-input">
+                                    <input type="radio" id="stronglyagree" value="5" name="activity" class="custom-control-input">
+                                    <label class="custom-control-label" for="stronglyagree">Strongly agree</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="agree2" value="4" name="activity" class="custom-control-input">
                                     <label class="custom-control-label" for="agree2">Agree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="notsure2" name="activity" class="custom-control-input">
+                                    <input type="radio" id="notsure2" value="3" name="activity" class="custom-control-input">
                                     <label class="custom-control-label" for="notsure2">Not sure</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="disagree2" name="activity" class="custom-control-input">
+                                    <input type="radio" id="disagree2" value="2" name="activity" class="custom-control-input">
                                     <label class="custom-control-label" for="disagree2">Disagree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="Strongly2" name="activity" class="custom-control-input">
+                                    <input type="radio" id="Strongly2" value="1" name="activity" class="custom-control-input">
                                     <label class="custom-control-label" for="Strongly2">Strongly disagree</label>
                                 </div>
                             </div>
                             <div class="col-12 mb-3">
                                 <p><strong>The speaker/material was interesting</strong></p>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="agree3" name="interesting" class="custom-control-input">
+                                    <input type="radio" id="stronglyagree" name="interesting" value="5" class="custom-control-input">
+                                    <label class="custom-control-label" for="stronglyagree">Strongly agree</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="agree3" value="4" name="interesting" class="custom-control-input">
                                     <label class="custom-control-label" for="agree3">Agree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="notsure3" name="interesting" class="custom-control-input">
+                                    <input type="radio" id="notsure3" value="3" name="interesting" class="custom-control-input">
                                     <label class="custom-control-label" for="notsure3">Not sure</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="disagree3" name="interesting" class="custom-control-input">
+                                    <input type="radio" id="disagree3" value="2" name="interesting" class="custom-control-input">
                                     <label class="custom-control-label" for="disagree3">Disagree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="Strongly3" name="interesting" class="custom-control-input">
+                                    <input type="radio" id="Strongly3" value="1" name="interesting" class="custom-control-input">
                                     <label class="custom-control-label" for="Strongly3">Strongly disagree</label>
                                 </div>
                             </div>
                             <div class="col-12 mb-3">
                                 <p><strong>The overall experience met my expectations</strong></p>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="agree4" name="experience" class="custom-control-input">
+                                    <input type="radio" id="stronglyagree" name="experience" value="5" class="custom-control-input">
+                                    <label class="custom-control-label" for="stronglyagree">Strongly agree</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="agree4" value="4" name="experience" class="custom-control-input">
                                     <label class="custom-control-label" for="agree4">Agree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="notsure4" name="experience" class="custom-control-input">
+                                    <input type="radio" id="notsure4" value="3" name="experience" class="custom-control-input">
                                     <label class="custom-control-label" for="notsure4">Not sure</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="disagree4" name="experience" class="custom-control-input">
+                                    <input type="radio" id="disagree4" value="2" name="experience" class="custom-control-input">
                                     <label class="custom-control-label" for="disagree4">Disagree</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="Strongly4" name="experience" class="custom-control-input">
+                                    <input type="radio" id="Strongly4" value="1" name="experience" class="custom-control-input">
                                     <label class="custom-control-label" for="Strongly4">Strongly disagree</label>
                                 </div>
                             </div>
@@ -401,7 +452,7 @@
                                 <textarea class="form-control" id="additional-comments" rows="3"></textarea>
                             </div>
                             <div class="col-12">
-                                <input type="submit" VALUE="Submit" class="btn btn-submit">
+                                <input type="submit" id="submit-feedback" VALUE="Submit" class="btn btn-submit">
                             </div>
                         </div>
                     </div>
@@ -1227,6 +1278,78 @@
                 e.preventDefault(); $(this).parent('div').remove(); x--;
             })
         });
+
+        $('#submit-feedback').on('click', function () {
+            var sessions = $('input[name=sessions]:checked').val(),
+                activity = $('input[name=activity]:checked').val(),
+                experience = $('input[name=experience]:checked').val(),
+                interesting = $('input[name=interesting]:checked').val(),
+                additional = $('#additional-comments').val();
+
+            if(sessions > 0 && activity > 0 && experience > 0 && interesting > 0)
+            {
+                $.post('/add-feedback/{{$selected_day->id}}', {
+                    "_token": "{{ csrf_token() }}",
+                    "q1": sessions,
+                    "q2": activity,
+                    "q3": interesting,
+                    "q4": experience,
+                    "comment": additional
+                }, function (data) {
+                    if(data.state == 0)
+                    {
+                        $('#feedback-att .modal-header .modal-title').html("Result");
+                        $('#feedback-att .modal-body').html('<div class="alert alert-danger">'+ data.msg +'</div>');
+                        $("#submit-feedback").remove();
+                    }else{
+                        $('#feedback-att .modal-header .modal-title').html("Result");
+                        $('#feedback-att .modal-body').html('<div class="alert alert-success">'+ data.msg +'</div>');
+                        $("#submit-feedback").remove();
+                    }
+                })
+            }else{
+                alert('PLease fill all data');
+            }
+
+        });
+        $('.speker').on('click', function () {
+            var speaker_id = $(this).attr('id'),
+                speaker_name = $(this).parent().find('.texts')[0].innerText;
+            $('#speakerName').text('Speaker Name : ' + speaker_name);
+
+            $('#submitspeakerrate').on('click', function () {
+                var speaker_rating = $('input[name=speakerrating]:checked').val(),
+                    feedback = $('#speakerratingfeedback').val();
+
+                $.post('/speakers/'+ speaker_id +'/vote', {"_token": "{{ csrf_token() }}",rate:speaker_rating, comment: feedback}, function (data) {
+                    $('#rate-speaker').modal('hide');
+                    $('input[name=speakerrating]:checked').prop('checked',false);
+                    $('#speakerratingfeedback').val('');
+
+                })
+
+            })
+        })
+        $('.ssession').on('click', function () {
+            var session_id = $(this).attr('id'),
+                session_name = $(this).parent().find('.textsession')[0].innerText,
+                session_desc = $(this).parent().find('.descsession')[0].innerText;
+            $('#sessionName').text('Session Name : ' + session_name);
+            $('#sessionDesc').html(session_desc);
+
+            $('#submitsessionrate').on('click', function () {
+                var session_rating = $('input[name=sessionrating]:checked').val(),
+                    sfeedback = $('#sessionratingfeedback').val();
+
+                $.post('/talks/'+ session_id +'/vote ', {"_token": "{{ csrf_token() }}",rate:session_rating, comment: sfeedback}, function (data) {
+                    $('#rate-speaker').modal('hide');
+                    $('input[name=sessionrating]:checked').prop('checked',false);
+                    $('#sessionratingfeedback').val('');
+
+                })
+
+            })
+        })
         $(function() {
             $(".fullscreen").click(function() {
                 $(".webinar").addClass("full-screen");

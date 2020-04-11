@@ -76,7 +76,8 @@ class EventController extends Controller
     {
         $auth_user = auth()->user();
         $speakers =collect([]);
-        $talks =  $event->talks;
+        $selected_day =$event->days()->where('date',date('Y-m-d'))->first();
+        $talks = $selected_day->talks;
         foreach ($talks as $talk)
         {
             $speakers = $speakers->merge($talk->speakers);
@@ -90,9 +91,8 @@ class EventController extends Controller
         $api_sercet = env('ZOOM_SECRET');
         $role =0;
         $signature = $this->generate_signature($api_key,$api_sercet,$event->meeting_id,$role);
-
         return view('site.pages.event.live',compact(
-            'event','speakers','days','auth_user','questions','polls','signature','api_key'
+            'event','talks', 'speakers','selected_day','days','auth_user','questions','polls','signature','api_key'
         ));
     }
 
@@ -122,6 +122,8 @@ class EventController extends Controller
         $rows = $first_day->talks;
         return view('site.pages.day.index',compact('event','rows'));
     }
+
+
 
     public function getVote(Talk $talk)
     {

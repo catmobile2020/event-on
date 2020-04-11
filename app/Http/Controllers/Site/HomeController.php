@@ -18,7 +18,7 @@ class HomeController extends Controller
         $event =$company->events()->active()->where(function ($q){
             $q->where('start_date','>=',today())->orWhere('end_date','>',today());
         })->orderBy('start_date')->first();
-        return view('site.pages.home',compact('company','sliders','video','ads','event'));
+        return view('site.pages.new-home',compact('company','sliders','video','ads','event'));
     }
 
     public function faqs()

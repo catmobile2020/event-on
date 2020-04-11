@@ -121,6 +121,7 @@ Route::group(['namespace'=>'Site','as'=>'site.'],function (){
         Route::get('/events','EventController@events')->name('events.index');
         Route::get('/events/{event}','EventController@show')->name('events.show');
         Route::get('/events/{event}/default-live','EventController@defaultLive')->name('events.defaultLive');
+        Route::get('/current-day/{event}','EventController@curAgenda')->name('events.cur');
         Route::get('/events/{event}/live','EventController@live')->name('events.live');
         Route::get('/register-to-event/{event}','EventController@registerToEvent')->name('events.registerToEvent');
 
@@ -144,5 +145,7 @@ Route::group(['namespace'=>'Site','as'=>'site.'],function (){
         Route::post('/speakers/{speaker}/polls','PollController@store')->name('polls.store');
         Route::get('/polls/{poll}/destroy','PollController@destroy')->name('polls.destroy');
         Route::post('/polls/{poll}/add-vote','PollController@addVote')->name('polls.addVote');
+
+        Route::post('/add-feedback/{day}', 'FeedbackController@addFeedback');
     });
 });

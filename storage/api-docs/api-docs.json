@@ -10,10 +10,6 @@
         "version": "1.0"
     },
     "basePath": "/api",
-    "schemes": [
-        "http",
-        "https"
-    ],
     "paths": {
         "/auth/login": {
             "post": {
@@ -412,6 +408,32 @@
                     "speakers"
                 ],
                 "summary": "get speakers paginated",
+                "responses": {
+                    "200": {
+                        "description": "object"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ]
+            }
+        },
+        "/speakers/{speaker}": {
+            "get": {
+                "tags": [
+                    "speakers"
+                ],
+                "summary": "get speaker",
+                "parameters": [
+                    {
+                        "name": "speaker",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "object"
