@@ -24,7 +24,7 @@ class RateRequest extends FormRequest
     public function rules()
     {
         return [
-            'rate'=>'required|integer|min:0|max:5',
+            'rate'=>'required|min:0|max:5',
         ];
     }
 }

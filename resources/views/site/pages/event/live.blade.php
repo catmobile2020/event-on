@@ -173,7 +173,6 @@
                 </div>
             </div>
         </div>
-        @if($talks->where('time_from', '<=', date('H:i:s'))->where('time_to', '>=', date('H:i:s'))->first())
         <div class="modal fade" id="rate-att" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -194,8 +193,9 @@
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="speaker" role="tabpanel" aria-labelledby="speaker-tab">
-                                <div class="d-flex justify-content-start" style=" background-color: #f4f6f8; margin-top: 20px">
-                                    @foreach($talks->where('time_from', '<=', date('H:i:s'))->where('time_to', '>=', date('H:i:s'))->first()->speakers as $speaker)
+
+                                    @foreach($speakers as $speaker)
+                                    <div class="d-flex justify-content-start" style=" background-color: #f4f6f8; margin-top: 20px">
                                         <div class="session-data-speaker">
                                             <div class="date">
                                                 <img src="{{$speaker->photo}}" alt="{{$speaker->name}}">
@@ -203,21 +203,22 @@
                                         </div>
                                         <div class="speaker-data">
                                             <div class="block-name d-flex justify-content-between">
-                                                <span class="color-text pt-2">DR {{ $speaker->name }}</span>
-                                                <a href="{{ $speaker->id }}" class="primary-button-speaker" data-toggle="modal" data-target="#rate-speaker">Rate Speaker</a>
+                                                <span class="color-text pt-2 texts">DR {{ $speaker->name }}</span>
+                                                <a href="#" id="{{ $speaker->id }}" class="primary-button-speaker speker" data-toggle="modal" data-target="#rate-speaker">Rate Speaker</a>
                                             </div>
                                             <div class="block-data">
                                                 <p>{{$speaker->specialty}}</p>
                                             </div>
                                         </div>
+                                    </div>
                                     @endforeach
-                                </div>
+
                             </div>
                             <div class="tab-pane fade" id="session" role="tabpanel" aria-labelledby="session-tab">
                                 <div class="block-content">
-                                    <p><strong>Session Name : {{$talks->where('time_from', '<=', date('H:i:s'))->where('time_to', '>=', date('H:i:s'))->first()->title }}</strong></p>
+                                    <p><strong>Session Name : {{$talks->where('time_from', '<=', date('H:i:s'))->first()->title }}</strong></p>
                                     <p>
-                                        {!!  $talks->where('time_from', '<=', date('H:i:s'))->where('time_to', '>=', date('H:i:s'))->first()->desc !!}
+                                        {!!  $talks->where('time_from', '<=', date('H:i:s'))->first()->desc !!}
                                     </p>
                                     <div class="col-12">
                                         <fieldset class="rating">
@@ -247,7 +248,6 @@
                 </div>
             </div>
         </div>
-        @endif
 
         <div class="modal fade" id="rate-speaker" tabindex="-1" role="dialog"  aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -261,27 +261,28 @@
                     <div class="modal-body">
                         <div class="col-12">
                             <div class="block-content p-4">
-                                <p><strong>Speaker Name : Nabil Elsheikh</strong></p>
+                                <p><strong id="speakerName">Speaker Name : Nabil Elsheikh</strong></p>
+
                                 <div class="col-12">
                                     <fieldset class="rating">
-                                        <input type="radio" id="speakerstar5" name="rating" value="5" /><label class = "full" for="speakerstar5"></label>
-                                        <input type="radio" id="speakerstar4half" name="rating" value="4.5" /><label class="half" for="speakerstar4half" title="Pretty good - 4.5 stars"></label>
-                                        <input type="radio" id="speakerstar4" name="rating" value="4" /><label class = "full" for="speakerstar4" title="Pretty good - 4 stars"></label>
-                                        <input type="radio" id="speakerstar3half" name="rating" value="3.5" /><label class="half" for="speakerstar3half" title="Meh - 3.5 stars"></label>
-                                        <input type="radio" id="speakerstar3" name="rating" value="3" /><label class = "full" for="speakerstar3" title="Meh - 3 stars"></label>
-                                        <input type="radio" id="speakerstar2half" name="rating" value="2.5" /><label class="half" for="speakerstar2half" title="Kinda bad - 2.5 stars"></label>
-                                        <input type="radio" id="speakerstar2" name="rating" value="2" /><label class = "full" for="speakerstar2" title="Kinda bad - 2 stars"></label>
-                                        <input type="radio" id="speakerstar1half" name="rating" value="1.5" /><label class="half" for="speakerstar1half" title="Meh - 1.5 stars"></label>
-                                        <input type="radio" id="speakerstar1" name="rating" value="1" /><label class = "full" for="speakerstar1" title="Sucks big time - 1 star"></label>
-                                        <input type="radio" id="speakerstarhalf" name="rating" value="half" /><label class="half" for="speakerstarhalf" title="Sucks big time - 0.5 stars"></label>
+                                        <input type="radio" id="speakerstar5" name="speakerrating" value="5" /><label class = "full" for="speakerstar5"></label>
+                                        <input type="radio" id="speakerstar4half" name="speakerrating" value="4.5" /><label class="half" for="speakerstar4half" title="Pretty good - 4.5 stars"></label>
+                                        <input type="radio" id="speakerstar4" name="speakerrating" value="4" /><label class = "full" for="speakerstar4" title="Pretty good - 4 stars"></label>
+                                        <input type="radio" id="speakerstar3half" name="speakerrating" value="3.5" /><label class="half" for="speakerstar3half" title="Meh - 3.5 stars"></label>
+                                        <input type="radio" id="speakerstar3" name="speakerrating" value="3" /><label class = "full" for="speakerstar3" title="Meh - 3 stars"></label>
+                                        <input type="radio" id="speakerstar2half" name="speakerrating" value="2.5" /><label class="half" for="speakerstar2half" title="Kinda bad - 2.5 stars"></label>
+                                        <input type="radio" id="speakerstar2" name="speakerrating" value="2" /><label class = "full" for="speakerstar2" title="Kinda bad - 2 stars"></label>
+                                        <input type="radio" id="speakerstar1half" name="speakerrating" value="1.5" /><label class="half" for="speakerstar1half" title="Meh - 1.5 stars"></label>
+                                        <input type="radio" id="speakerstar1" name="speakerrating" value="1" /><label class = "full" for="speakerstar1" title="Sucks big time - 1 star"></label>
+                                        <input type="radio" id="speakerstarhalf" name="speakerrating" value="half" /><label class="half" for="speakerstarhalf" title="Sucks big time - 0.5 stars"></label>
                                     </fieldset>
                                 </div>
                                 <div class="col-12 p-0 m-0">
                                     <div class="form-group">
-                                        <textarea class="form-control" rows="3" placeholder="Your Feedback"></textarea>
+                                        <textarea class="form-control" id="speakerratingfeedback" rows="3" placeholder="Your Feedback"></textarea>
                                     </div>
                                 </div>
-                                <input type="submit" VALUE="Submit" class="btn btn-submit">
+                                <input type="submit" id="submitspeakerrate" VALUE="Submit" class="btn btn-submit">
                             </div>
                         </div>
                     </div>
@@ -1186,6 +1187,24 @@
             }
 
         });
+        $('.speker').on('click', function () {
+            var speaker_id = $(this).attr('id'),
+                speaker_name = $(this).parent().find('.texts')[0].innerText;
+            $('#speakerName').text('Speaker Name : ' + speaker_name);
+
+            $('#submitspeakerrate').on('click', function () {
+                var speaker_rating = $('input[name=speakerrating]:checked').val(),
+                    feedback = $('#speakerratingfeedback').val();
+
+                $.post('/speakers/'+ speaker_id +'/vote', {"_token": "{{ csrf_token() }}",rate:speaker_rating, comment: feedback}, function (data) {
+                    $('#rate-speaker').modal('hide');
+                    $('input[name=speakerrating]:checked').prop('checked',false);
+                    $('#speakerratingfeedback').val('');
+
+                })
+
+            })
+        })
         $(function() {
             $(".fullscreen").click(function() {
                 $(".webinar").addClass("full-screen");
