@@ -150,13 +150,36 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script>
-    var video = document.getElementById("myVideo");
-    video.onended = function() {
-        var el = document.getElementsByClassName("button-video")[0];
-        el.classList.add("show");
-        var elbutton = document.getElementsByClassName("button-list-action")[0];
-        elbutton.classList.add('animated', 'bounceInUp');
-    };
+    $(document).ready(function(){
+        if($.cookie('video') === 'watched')
+        {
+            var el = document.getElementsByClassName("button-video")[0];
+            el.classList.add("show");
+            var elbutton = document.getElementsByClassName("button-list-action")[0];
+            elbutton.classList.add('animated', 'bounceInUp');
+        }
+        var video = document.getElementById("myVideo");
+
+        video.onended = function() {
+            $.cookie("video", "watched");
+            if ($.cookie('video') != 'watched') {
+                var el = document.getElementsByClassName("button-video")[0];
+                el.classList.remove("show");
+            } else {
+                var el = document.getElementsByClassName("button-video")[0];
+                el.classList.add("show");
+                var elbutton = document.getElementsByClassName("button-list-action")[0];
+                elbutton.classList.add('animated', 'bounceInUp');
+            }
+        };
+
+
+        replay.addEventListener("click",function(){
+            video.play();
+            var el = document.getElementsByClassName("button-video")[0];
+            el.classList.remove("show");
+        });
+    });
 </script>
 </body>
 </html>

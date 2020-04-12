@@ -111,6 +111,7 @@
       <path value="$PROJECT_DIR$/vendor/benwilkins/laravel-fcm-notification" />
       <path value="$PROJECT_DIR$/vendor/nategood/httpful" />
       <path value="$PROJECT_DIR$/vendor/slakbal/gotowebinar" />
+      <path value="$PROJECT_DIR$/vendor/predis/predis" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
